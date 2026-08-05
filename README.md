@@ -41,6 +41,12 @@ Ships: skill `seo` → `/seo:seo`
 
 Inspired by the excellent [claude-seo](https://github.com/AgriciDaniel/claude-seo) toolkit (MIT) by Daniel Agrici — install that instead if you want the full 25-skill / 18-agent version with SERP data and drift monitoring. This plugin is the single-skill, zero-dependency distillation.
 
+### seo-de
+
+German-language version of the `seo` skill, extended with DACH specifics: Impressum/Datenschutz as legal requirement and E-E-A-T trust signal, umlaut transliteration in URLs (ä→ae, ß→ss), `hreflang` for de-DE/de-AT/de-CH, Swiss ß handling, EUR/CHF product schema. Audits, reports, and communicates in German.
+
+Ships: skill `seo-de` → `/seo-de:seo-de`
+
 ## Layout
 
 ```
@@ -52,6 +58,9 @@ plugins/orchestrator/
 plugins/seo/
   .claude-plugin/plugin.json
   skills/seo/SKILL.md
+plugins/seo-de/
+  .claude-plugin/plugin.json
+  skills/seo-de/SKILL.md
 ```
 
 ## License

@@ -25,6 +25,16 @@
       "license": "MIT",
       "category": "workflow",
       "keywords": ["seo", "audit", "structured-data", "core-web-vitals", "geo", "ai-search", "e-e-a-t"]
+    },
+    {
+      "name": "seo-de",
+      "source": "./plugins/seo-de",
+      "description": "SEO-Audit und -Fixes auf Deutsch: technisch, On-Page, Core Web Vitals, strukturierte Daten, E-E-A-T und KI-Suche (GEO) — plus DACH-Spezifika wie Impressumspflicht, Umlaut-URLs und hreflang für DE/AT/CH.",
+      "version": "1.0.0",
+      "author": { "name": "alohaworld42" },
+      "license": "MIT",
+      "category": "workflow",
+      "keywords": ["seo", "deutsch", "german", "dach", "audit", "structured-data", "core-web-vitals", "geo", "e-e-a-t"]
     }
   ]
 }
