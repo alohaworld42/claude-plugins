@@ -29,6 +29,18 @@ Ships:
 - skill `orchestrator` → `/orchestrator:orchestrator`
 - sub-agent `sonnet-worker` (Sonnet, low effort)
 
+### seo
+
+SEO audit-and-fix workflow. Audits a page or site against a seven-part checklist — crawlability/indexability, on-page, Core Web Vitals, structured data, E-E-A-T content, AI-search (GEO) readiness, plus i18n/local/e-commerce where relevant — then applies fixes directly in the codebase.
+
+- Evidence-backed findings only; no invented scores or traffic predictions.
+- Audits raw server HTML first (what crawlers see), rendered DOM second.
+- Prioritized findings table, applied fixes with diffs, remaining user actions.
+
+Ships: skill `seo` → `/seo:seo`
+
+Inspired by the excellent [claude-seo](https://github.com/AgriciDaniel/claude-seo) toolkit (MIT) by Daniel Agrici — install that instead if you want the full 25-skill / 18-agent version with SERP data and drift monitoring. This plugin is the single-skill, zero-dependency distillation.
+
 ## Layout
 
 ```
@@ -37,6 +49,9 @@ plugins/orchestrator/
   .claude-plugin/plugin.json
   skills/orchestrator/SKILL.md
   agents/sonnet-worker.md
+plugins/seo/
+  .claude-plugin/plugin.json
+  skills/seo/SKILL.md
 ```
 
 ## License

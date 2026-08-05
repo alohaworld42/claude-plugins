@@ -1,0 +1,10 @@
+{
+  "name": "seo",
+  "displayName": "SEO",
+  "version": "1.0.0",
+  "description": "Audit and fix a site's SEO: technical, on-page, Core Web Vitals, structured data, E-E-A-T content, and AI-search (GEO) readiness — evidence-backed findings, then real fixes in the codebase.",
+  "author": { "name": "alohaworld42" },
+  "repository": "https://github.com/alohaworld42/claude-plugins",
+  "license": "MIT",
+  "keywords": ["seo", "audit", "structured-data", "core-web-vitals", "geo", "ai-search", "e-e-a-t"]
+}

@@ -15,6 +15,16 @@
       "license": "MIT",
       "category": "workflow",
       "keywords": ["orchestrator", "delegation", "sub-agents", "model-routing", "opus", "sonnet"]
+    },
+    {
+      "name": "seo",
+      "source": "./plugins/seo",
+      "description": "Audit and fix a site's SEO: technical, on-page, Core Web Vitals, structured data, E-E-A-T content, and AI-search (GEO) readiness — evidence-backed findings, then real fixes in the codebase.",
+      "version": "1.0.0",
+      "author": { "name": "alohaworld42" },
+      "license": "MIT",
+      "category": "workflow",
+      "keywords": ["seo", "audit", "structured-data", "core-web-vitals", "geo", "ai-search", "e-e-a-t"]
     }
   ]
 }
