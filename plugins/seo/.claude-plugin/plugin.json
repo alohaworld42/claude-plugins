@@ -1,7 +1,7 @@
 {
   "name": "seo",
   "displayName": "SEO",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Audit and fix a site's SEO: technical, on-page, Core Web Vitals, structured data, E-E-A-T content, and AI-search (GEO) readiness — evidence-backed findings, then real fixes in the codebase.",
   "author": { "name": "alohaworld42" },
   "homepage": "https://github.com/AgriciDaniel/claude-seo",
