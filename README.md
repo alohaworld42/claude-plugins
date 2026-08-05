@@ -47,6 +47,12 @@ German-language version of the `seo` skill, extended with DACH specifics: Impres
 
 Ships: skill `seo-de` → `/seo-de:seo-de`
 
+### telegramm
+
+Extreme output brevity for every Claude text — status updates included. Telegraph style, symbols (✓✗→Δ!?), result-first, hard line budget. Saves the user's reading time and tokens by selecting content *before* writing, not drafting then cutting: discarded tokens are already paid tokens.
+
+Ships: skill `telegramm` → `/telegramm:telegramm`
+
 ## Layout
 
 ```
@@ -61,6 +67,9 @@ plugins/seo/
 plugins/seo-de/
   .claude-plugin/plugin.json
   skills/seo-de/SKILL.md
+plugins/telegramm/
+  .claude-plugin/plugin.json
+  skills/telegramm/SKILL.md
 ```
 
 ## License

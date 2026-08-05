@@ -35,6 +35,16 @@
       "license": "MIT",
       "category": "workflow",
       "keywords": ["seo", "deutsch", "german", "dach", "audit", "structured-data", "core-web-vitals", "geo", "e-e-a-t"]
+    },
+    {
+      "name": "telegramm",
+      "source": "./plugins/telegramm",
+      "description": "Extreme Ausgabe-Kürzung für alle Claude-Texte — Telegrammstil, Symbole, Ergebnis zuerst, hartes Zeilenbudget. Spart Lesezeit und Tokens durch Weglassen vor dem Schreiben, nicht durch Fremdsprach-Kompression.",
+      "version": "1.0.0",
+      "author": { "name": "alohaworld42" },
+      "license": "MIT",
+      "category": "workflow",
+      "keywords": ["output", "concise", "brevity", "tokens", "deutsch", "german"]
     }
   ]
 }
