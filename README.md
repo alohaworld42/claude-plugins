@@ -53,6 +53,12 @@ Extreme output brevity for every Claude text — status updates included. Telegr
 
 Ships: skill `telegramm` → `/telegramm:telegramm`
 
+Full write-up incl. eval methodology and benchmark results: [plugins/telegramm/README.md](plugins/telegramm/README.md).
+
+## Contributing a plugin
+
+Each plugin directory should carry its own `README.md` (sibling to `.claude-plugin/` and `skills/`) explaining what it does and why. Where the skill was validated with the skill-creator eval loop (fixtures, with/without-skill subagent comparison, benchmark), include the methodology and results there instead of asserting effectiveness without evidence — see `plugins/telegramm/README.md` for the pattern.
+
 ## Layout
 
 ```
