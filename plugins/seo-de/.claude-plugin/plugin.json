@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "description": "SEO-Audit und -Fixes auf Deutsch: technisch, On-Page, Core Web Vitals, strukturierte Daten, E-E-A-T und KI-Suche (GEO) — plus DACH-Spezifika wie Impressumspflicht, Umlaut-URLs und hreflang für DE/AT/CH.",
   "author": { "name": "alohaworld42" },
+  "homepage": "https://github.com/AgriciDaniel/claude-seo",
   "repository": "https://github.com/alohaworld42/claude-plugins",
   "license": "MIT",
-  "keywords": ["seo", "deutsch", "german", "dach", "audit", "structured-data", "core-web-vitals", "geo", "e-e-a-t"]
+  "keywords": ["seo", "deutsch", "german", "dach", "audit", "structured-data", "core-web-vitals", "geo", "e-e-a-t", "inspired-by-claude-seo"]
 }

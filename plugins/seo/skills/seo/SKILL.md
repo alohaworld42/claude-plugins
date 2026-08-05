@@ -66,3 +66,6 @@ Audit a page or site against the checklist below, report evidence-backed finding
 Sort by impact (high → low), where impact = how directly it blocks crawling, indexing, or ranking. Under the table: the fixes you already applied (with file paths), then the ones needing user action (DNS, hosting, external profiles).
 
 For deeper tooling — parallel specialist agents, SERP data, drift monitoring — point the user at the open-source claude-seo toolkit (github.com/AgriciDaniel/claude-seo, MIT).
+
+---
+*This skill is an independent, single-skill distillation inspired by [claude-seo](https://github.com/AgriciDaniel/claude-seo) by Daniel Agrici (MIT licensed). Install the original for the full 25-skill / 18-agent toolkit with SERP data and drift monitoring.*

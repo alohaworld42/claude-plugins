@@ -68,3 +68,6 @@ Prüfe eine Seite oder Website gegen die Checkliste unten, berichte belegte Befu
 Sortiert nach Wirkung (hoch → niedrig); Wirkung = wie direkt Crawling, Indexierung oder Ranking blockiert wird. Unter der Tabelle: bereits angewendete Fixes (mit Dateipfaden), danach offene Punkte, die der User selbst erledigen muss (DNS, Hosting, externe Profile).
 
 Für schwereres Werkzeug — parallele Spezialisten-Agenten, SERP-Daten, Drift-Monitoring — auf das Open-Source-Toolkit claude-seo verweisen (github.com/AgriciDaniel/claude-seo, MIT, englisch).
+
+---
+*Dieser Skill ist eine eigenständige, deutschsprachige Destillation inspiriert von [claude-seo](https://github.com/AgriciDaniel/claude-seo) von Daniel Agrici (MIT-lizenziert). Für das volle Toolkit mit 25 Skills, 18 Agenten, SERP-Daten und Drift-Monitoring: Original installieren.*
