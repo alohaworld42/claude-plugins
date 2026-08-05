@@ -1,0 +1,20 @@
+{
+  "name": "alohaworld-plugins",
+  "description": "Workflow plugins for Claude Code — orchestration and delegation patterns that keep expensive models on judgment and hand execution to cheaper sub-agents.",
+  "owner": {
+    "name": "alohaworld42",
+    "url": "https://github.com/alohaworld42"
+  },
+  "plugins": [
+    {
+      "name": "orchestrator",
+      "source": "./plugins/orchestrator",
+      "description": "AI model routing protocols: Opus orchestrates design and review, Sonnet sub-agents execute, capped at 3 in parallel.",
+      "version": "1.0.0",
+      "author": { "name": "alohaworld42" },
+      "license": "MIT",
+      "category": "workflow",
+      "keywords": ["orchestrator", "delegation", "sub-agents", "model-routing", "opus", "sonnet"]
+    }
+  ]
+}

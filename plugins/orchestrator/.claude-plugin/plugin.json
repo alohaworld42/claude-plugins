@@ -1,0 +1,10 @@
+{
+  "name": "orchestrator",
+  "displayName": "Orchestrator",
+  "version": "1.0.0",
+  "description": "AI model routing protocols: Opus orchestrates design and review, Sonnet sub-agents execute, capped at 3 in parallel.",
+  "author": { "name": "alohaworld42" },
+  "repository": "https://github.com/alohaworld42/claude-plugins",
+  "license": "MIT",
+  "keywords": ["orchestrator", "delegation", "sub-agents", "model-routing", "opus", "sonnet"]
+}
