@@ -45,6 +45,16 @@
       "license": "MIT",
       "category": "workflow",
       "keywords": ["output", "concise", "brevity", "tokens", "deutsch", "german"]
+    },
+    {
+      "name": "wrapup",
+      "source": "./plugins/wrapup",
+      "description": "Gedächtnis über Sessions hinweg: am Session-Ende einen kompakten Digest lokal speichern, am Anfang gezielt zurückholen statt Kontext neu aufzubauen. Optionaler NotebookLM-Push für dessen Medien-Features.",
+      "version": "1.0.0",
+      "author": { "name": "alohaworld42" },
+      "license": "MIT",
+      "category": "workflow",
+      "keywords": ["memory", "session", "context", "recall", "tokens", "notebooklm", "deutsch"]
     }
   ]
 }

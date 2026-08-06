@@ -55,6 +55,17 @@ Ships: skill `telegramm` → `/telegramm:telegramm`
 
 Full write-up incl. eval methodology and benchmark results: [plugins/telegramm/README.md](plugins/telegramm/README.md).
 
+### wrapup
+
+Cross-session memory. At the end of a session, write a compact digest (decisions + why, gotchas, current state, open threads, pointers) to a local store; at the start of the next one, pull back only what's relevant instead of rebuilding context.
+
+The saving comes from selective loading, not compression: `INDEX.md` is one line per session, `recall.py` ranks matching digests, and only the relevant digest gets read.
+
+- Local-first: plain markdown under `~/.claude/wrapup/`, no external service, nothing to break.
+- Optional `--push-notebooklm` mirrors the digest into NotebookLM (Gemini Notebook) for its media features — via the unofficial `notebooklm-py` CLI. Google has no public NotebookLM API (as of 2026-08), so that path is a bonus, never the foundation; if the CLI is absent the push reports `skipped` and the local digest is written anyway.
+
+Ships: skill `wrapup` → `/wrapup:wrapup`, plus `scripts/wrapup.py` and `scripts/recall.py`
+
 ## Contributing a plugin
 
 Each plugin directory should carry its own `README.md` (sibling to `.claude-plugin/` and `skills/`) explaining what it does and why. Where the skill was validated with the skill-creator eval loop (fixtures, with/without-skill subagent comparison, benchmark), include the methodology and results there instead of asserting effectiveness without evidence — see `plugins/telegramm/README.md` for the pattern.
@@ -76,6 +87,10 @@ plugins/seo-de/
 plugins/telegramm/
   .claude-plugin/plugin.json
   skills/telegramm/SKILL.md
+plugins/wrapup/
+  .claude-plugin/plugin.json
+  skills/wrapup/SKILL.md
+  skills/wrapup/scripts/{wrapup,recall}.py
 ```
 
 ## License
