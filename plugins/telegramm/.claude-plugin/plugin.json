@@ -1,8 +1,8 @@
 {
   "name": "telegramm",
   "displayName": "Telegramm",
-  "version": "1.0.0",
-  "description": "Extreme Ausgabe-Kürzung für alle Claude-Texte — Telegrammstil, Symbole, Ergebnis zuerst, hartes Zeilenbudget. Spart Lesezeit und Tokens durch Weglassen vor dem Schreiben, nicht durch Fremdsprach-Kompression.",
+  "version": "1.1.0",
+  "description": "Extreme Ausgabe-Kürzung für alle Claude-Texte inklusive Sub-Agent-Rückgaben — Telegrammstil, Symbole, Ergebnis zuerst, hartes Zeilenbudget. Spart Lesezeit und Tokens durch Weglassen vor dem Schreiben, nicht durch Fremdsprach-Kompression.",
   "author": { "name": "alohaworld42" },
   "repository": "https://github.com/alohaworld42/claude-plugins",
   "license": "MIT",

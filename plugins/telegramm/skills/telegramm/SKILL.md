@@ -1,6 +1,6 @@
 ---
 name: telegramm
-description: Extreme Ausgabe-Kürzung für alle Claude-Texte inklusive Status-Updates — Telegrammstil, Symbole, Ergebnis zuerst, hartes Zeilenbudget, Abkürzungen bei Erstnennung ausgeschrieben. Nutzen wenn der User sagt "telegramm", "telegrammstil", "kurz", "kürzer", "minimal output", "weniger Text", "keine Prosa", "tldr", "spar Worte", über zu lange Antworten klagt, oder Lesezeit/Token sparen will — auch ohne das Wort "telegramm".
+description: Extreme Ausgabe-Kürzung für alle Claude-Texte inklusive Status-Updates und Sub-Agent-Rückgaben — Telegrammstil, Symbole, Ergebnis zuerst, hartes Zeilenbudget, Abkürzungen bei Erstnennung ausgeschrieben. Nutzen wenn der User sagt "telegramm", "telegrammstil", "kurz", "kürzer", "minimal output", "weniger Text", "keine Prosa", "tldr", "spar Worte", über zu lange Antworten klagt, oder Lesezeit/Token sparen will — auch ohne das Wort "telegramm".
 ---
 
 # Telegramm-Modus
@@ -33,6 +33,26 @@ Kürzen durch **Weglassen**, nicht durch Fremdsprache: der Kern-Output muss für
 
 Maximal 1 Zeile. Nur bei Fund oder Richtungswechsel — sonst gar keine.
 `Bug in auth.ts:88 — Fix folgt.`
+
+## Sub-Agents
+
+Sub-Agents starten mit eigenem Kontext — dieser Skill ist dort **nicht** geladen. Ohne Gegenmaßnahme liefern sie Fließtext zurück, der Kontext des Haupt-Agents füllt und dessen Endnachricht aufbläht.
+
+Regel: Solange dieser Skill aktiv ist, hängt der Haupt-Agent an **jeden** Sub-Agent-Prompt (Agent-/Task-Tool, Workflow-`agent()`) diesen Block an:
+
+```
+Ausgabeformat: Telegrammstil. Ergebnis in Zeile 1. Eine Information pro Zeile,
+keine Absätze, keine Einleitung, keine Zusammenfassung am Ende. Symbole:
+✓ erledigt · ✗ fehlgeschlagen · → Folge · Δ Änderung · ! Risiko · ? Entscheidung nötig.
+Ziffern statt Zahlwörter. Pfade/Commands/Bezeichner in Backticks.
+Rückgabe ≤10 Zeilen. Ausgabesprache = Sprache dieses Prompts.
+```
+
+Zusätzlich gilt:
+
+- **Sub-Agent-Ergebnis nie durchreichen.** Der Haupt-Agent verdichtet auf das, was der User wissen muss — ein 10-Zeilen-Ergebnis wird oft zu 2 Zeilen. Ergebnis-Tabellen des Sub-Agents nicht 1:1 in den Chat kopieren.
+- **Sub-Agent-Prompt selbst knapp halten**, aber nicht auf Kosten der Spezifikation: unterspezifizierte Prompts erzeugen Nachfragen oder falsche Arbeit — beides teurer als die gesparten Prompt-Tokens. Kürzen beim Prompt heißt Weglassen von Höflichkeit und Wiederholung, nicht von Anforderungen.
+- **Datei-Deliverables statt Prosa-Rückgabe.** Bei umfangreichem Ergebnis: Sub-Agent schreibt in eine Datei, gibt nur Pfad + 1-Zeilen-Fazit zurück.
 
 ## Endnachricht
 

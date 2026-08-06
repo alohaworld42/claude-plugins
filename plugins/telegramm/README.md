@@ -8,6 +8,10 @@ Jedes ausgegebene Wort kostet doppelt: Lesezeit des Users UND Tokens — gleiche
 
 Kürzen passiert durch **Auswahl vor dem Schreiben**, nicht durch Fremdsprach-Kompression (kein Mandarin-Trick) und nicht durch Schreiben-dann-Streichen — verworfene Zeilen sind bereits bezahlte Tokens. Details: [SKILL.md](skills/telegramm/SKILL.md).
 
+## Sub-Agents (ab 1.1.0)
+
+Sub-Agents starten mit eigenem Kontext, in dem der Skill nicht geladen ist — ihre Rückgaben kamen deshalb weiterhin als Fließtext zurück und blähten die Endnachricht des Haupt-Agents auf. Seit 1.1.0 enthält der Skill einen Format-Block, den der Haupt-Agent an jeden Sub-Agent-Prompt anhängt, plus die Regel, Sub-Agent-Ergebnisse zu verdichten statt durchzureichen.
+
 ## Eval-Methodik
 
 3 Testfälle, je ein Subagent **mit** Skill gegen einen Baseline-Subagent **ohne** Skill, identischer Prompt, gleiches Modell (Sonnet, low effort):
