@@ -49,8 +49,8 @@
     {
       "name": "wrapup",
       "source": "./plugins/wrapup",
-      "description": "Gedächtnis über Sessions hinweg: am Session-Ende einen kompakten Digest lokal speichern, am Anfang gezielt zurückholen statt Kontext neu aufzubauen. Optionaler NotebookLM-Push für dessen Medien-Features.",
-      "version": "1.0.0",
+      "description": "Gedächtnis über Sessions hinweg: am Session-Ende einen kompakten Digest lokal speichern, am Anfang gezielt zurückholen statt Kontext neu aufzubauen. Optionaler Notion-Spiegel (offizielle API) für Suche und Handy-Zugriff.",
+      "version": "1.1.0",
       "author": { "name": "alohaworld42" },
       "license": "MIT",
       "category": "workflow",

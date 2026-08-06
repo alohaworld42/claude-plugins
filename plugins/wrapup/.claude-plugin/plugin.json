@@ -1,8 +1,8 @@
 {
   "name": "wrapup",
   "displayName": "Wrapup",
-  "version": "1.0.0",
-  "description": "Gedächtnis über Sessions hinweg: am Session-Ende einen kompakten Digest lokal speichern, am Anfang gezielt zurückholen statt Kontext neu aufzubauen. Optionaler NotebookLM-Push für dessen Medien-Features.",
+  "version": "1.1.0",
+  "description": "Gedächtnis über Sessions hinweg: am Session-Ende einen kompakten Digest lokal speichern, am Anfang gezielt zurückholen statt Kontext neu aufzubauen. Optionaler Notion-Spiegel (offizielle API) für Suche und Handy-Zugriff.",
   "author": { "name": "alohaworld42" },
   "repository": "https://github.com/alohaworld42/claude-plugins",
   "license": "MIT",

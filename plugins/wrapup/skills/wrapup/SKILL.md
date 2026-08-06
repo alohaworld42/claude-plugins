@@ -1,6 +1,6 @@
 ---
 name: wrapup
-description: Session-Gedächtnis über Sessions hinweg — am Ende einer Session einen kompakten Digest speichern (Entscheidungen, Gotchas, Stand, offene Punkte) und am Anfang der nächsten gezielt zurückholen, statt Kontext neu aufzubauen. Nutzen wenn der User sagt "wrapup", "wrap up", "session speichern", "merk dir das für nächstes Mal", "was hatten wir letztes Mal", "worauf sind wir stehengeblieben", "erinnerst du dich an", eine Session abschließt, oder nach früheren Entscheidungen/Fixes fragt.
+description: Gedächtnis über Sessions hinweg — am Ende einer Session einen kompakten Digest speichern (Entscheidungen, Gotchas, Stand, offene Punkte), am Anfang der nächsten gezielt zurückholen statt Kontext neu aufzubauen. Lokal plus optionaler Notion-Spiegel. Nutzen wenn der User sagt "wrapup", "wrap up", "session speichern", "merk dir das für nächstes Mal", "was hatten wir letztes Mal", "worauf sind wir stehengeblieben", "erinnerst du dich an", eine Session abschließt, oder nach früheren Entscheidungen/Fixes fragt.
 ---
 
 # Wrapup — Gedächtnis über Sessions
@@ -57,19 +57,51 @@ Kein Treffer → sag das und arbeite ohne. Erfinde nichts aus dem Gedächtnis, w
 
 Für „was hatten wir zuletzt" ohne konkreten Suchbegriff: `~/.claude/wrapup/INDEX.md` lesen — die Datei ist klein genug, um sie ganz zu laden.
 
-## Optional: NotebookLM-Push
+## Optional: Notion-Spiegel (empfohlener Zweitspeicher)
 
-`--push-notebooklm` schickt denselben Digest zusätzlich als Notiz an NotebookLM (Gemini Notebook). Sinnvoll für dessen Medien-Features (Audio/Video-Overviews, Infografiken, Deep Research über die gesammelten Sessions) — **nicht** als Ersatz für den lokalen Store.
+Wer Notion nutzt, bekommt damit Volltext-/Semantiksuche über alle Sessions, Zugriff vom Handy und strukturierte Filter — über die **offizielle** Notion-API und den offiziellen MCP-Server. Kein Browser-Hack, keine undokumentierten Endpunkte.
+
+Ablauf nach dem lokalen Schreiben (der lokale Digest ist immer die Basis):
+
+1. **Datenbank finden.** Cache lesen: `~/.claude/wrapup/notion.json` (`{"data_source_id": "..."}`). Fehlt die Datei → mit `notion-search` nach einer Datenbank „Claude Session Log" suchen, `data_source_id` in den Cache schreiben.
+2. **Fehlt sie ganz**, dem User anbieten sie anzulegen (nicht ungefragt) — `notion-create-database`:
+   ```
+   CREATE TABLE ("Titel" TITLE, "Datum" DATE,
+                 "Projekt" SELECT('sonstiges':gray),
+                 "Tags" MULTI_SELECT('memory':purple, 'gotcha':red, 'entscheidung':blue, 'setup':gray),
+                 "Stand" RICH_TEXT COMMENT 'Ein Satz: wo die Sache steht')
+   ```
+3. **Push** mit `notion-create-pages`, `parent = {type: "data_source_id", data_source_id: <id>}`. Properties `Titel`/`Datum`/`Projekt`/`Tags`/`Stand` setzen, Digest-Body als `content` (Markdown, ohne Titel-Überschrift — der Titel steckt in den Properties).
+
+Der Push läuft agent-seitig über MCP, nicht im Skript: Ein Digest ist eine Synthese der Session — die kann nur das Modell erzeugen, kein Skript und kein Hook.
+
+### Recall aus Notion
+
+Zwei Wege, beide verifiziert:
+
+- **`notion-search`** mit normaler Suchanfrage — findet Digests workspace-weit inklusive Trefferzeile. Der schnelle Standardweg.
+- **`notion-query-data-sources`** (SQL) für strukturierte Fragen — „alle Sessions zu Projekt X, neueste zuerst":
+  ```sql
+  SELECT "Titel", "date:Datum:start" AS Datum, "Stand", url
+  FROM "collection://<data_source_id>"
+  WHERE "Projekt" = ? ORDER BY "date:Datum:start" DESC LIMIT 5
+  ```
+
+Gotcha: `notion-search` mit `data_source_url` (semantische Suche innerhalb der DB) lieferte direkt nach dem Anlegen einer Seite **leer** zurück — der Index braucht Zeit. Workspace-Suche und SQL-Query greifen sofort. Bei frischen Digests also nicht auf `data_source_url` setzen.
+
+## Alternative: NotebookLM
+
+`--push-notebooklm` schickt den Digest stattdessen als Notiz an NotebookLM (Gemini Notebook) — interessant nur wegen dessen Medien-Features (Audio/Video-Overviews, Infografiken).
 
 ```bash
 ... | python ".../wrapup.py" --title "..." --push-notebooklm --notebook <id>
 ```
 
-Ohne `--notebook` landet die Notiz im aktiven Notebook (`notebooklm use <id>`), oder setze `WRAPUP_NOTEBOOK`.
+Voraussetzung: `notebooklm` CLI installiert und eingeloggt (`uv tool install notebooklm-py`, dann `notebooklm login`). Ohne `--notebook` gilt das aktive Notebook, oder setze `WRAPUP_NOTEBOOK`. Fehlt die CLI, meldet das Skript `skipped` und der lokale Digest steht trotzdem.
 
-Voraussetzung: `notebooklm` CLI installiert und eingeloggt (`uv tool install notebooklm-py`, dann `notebooklm login`). Fehlt sie, meldet das Skript `skipped` und der lokale Digest ist trotzdem geschrieben — der Push kann den lokalen Pfad nie kaputt machen.
+**Erwartungshaltung:** `notebooklm-py` läuft auf undokumentierten Google-Endpunkten; eine öffentliche NotebookLM-API gibt es nicht (Stand 08/2026, nur Enterprise). Kann jederzeit brechen. Wer Notion hat, nimmt Notion.
 
-**Wichtig für die Erwartungshaltung:** `notebooklm-py` ist eine inoffizielle Bibliothek auf undokumentierten Google-Endpunkten. Google hat keine öffentliche NotebookLM-API (Stand 08/2026, nur Enterprise). Das kann jederzeit brechen. Genau deshalb ist der lokale Store die Basis und der Push die Kür — wer es andersherum baut, verliert bei der nächsten Google-Änderung sein Gedächtnis.
+**Grundregel für beide:** lokaler Store ist die Basis, der Spiegel ist die Kür. Ein externer Dienst darf nie das einzige Gedächtnis sein — sonst ist es weg, wenn der Anbieter etwas ändert.
 
 ## Automatisch statt manuell
 

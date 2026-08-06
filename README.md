@@ -62,7 +62,10 @@ Cross-session memory. At the end of a session, write a compact digest (decisions
 The saving comes from selective loading, not compression: `INDEX.md` is one line per session, `recall.py` ranks matching digests, and only the relevant digest gets read.
 
 - Local-first: plain markdown under `~/.claude/wrapup/`, no external service, nothing to break.
-- Optional `--push-notebooklm` mirrors the digest into NotebookLM (Gemini Notebook) for its media features — via the unofficial `notebooklm-py` CLI. Google has no public NotebookLM API (as of 2026-08), so that path is a bonus, never the foundation; if the CLI is absent the push reports `skipped` and the local digest is written anyway.
+- Optional **Notion mirror** (recommended second store): pushes the digest into a "Claude Session Log" database via Notion's official API and MCP server, giving you workspace-wide search, phone access, and structured SQL filters over every past session.
+- Optional `--push-notebooklm` mirrors into NotebookLM (Gemini Notebook) instead, for its media features — via the unofficial `notebooklm-py` CLI. Google has no public NotebookLM API (as of 2026-08), so prefer Notion; if the CLI is absent the push reports `skipped` and the local digest is written anyway.
+
+Either way the external store is the mirror, never the foundation — a service change must not be able to erase your memory.
 
 Ships: skill `wrapup` → `/wrapup:wrapup`, plus `scripts/wrapup.py` and `scripts/recall.py`
 
