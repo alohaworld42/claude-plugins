@@ -38,15 +38,31 @@ Maximal 1 Zeile. Nur bei Fund oder Richtungswechsel — sonst gar keine.
 
 Sub-Agents starten mit eigenem Kontext — dieser Skill ist dort **nicht** geladen. Ohne Gegenmaßnahme liefern sie Fließtext zurück, der Kontext des Haupt-Agents füllt und dessen Endnachricht aufbläht.
 
-Regel: Solange dieser Skill aktiv ist, hängt der Haupt-Agent an **jeden** Sub-Agent-Prompt (Agent-/Task-Tool, Workflow-`agent()`) diesen Block an:
+Regel: Solange dieser Skill aktiv ist, hängt der Haupt-Agent an **jeden** Sub-Agent-Prompt (Agent-/Task-Tool, Workflow-`agent()`) den Format-Block an — **in der Sprache des Task-Prompts**. Ein deutscher Block an einem englischen Task zieht die Antwort auf Deutsch (im Eval reproduziert), darum niemals mischen.
+
+Deutscher Task → deutscher Block:
 
 ```
 Ausgabeformat: Telegrammstil. Ergebnis in Zeile 1. Eine Information pro Zeile,
 keine Absätze, keine Einleitung, keine Zusammenfassung am Ende. Symbole:
 ✓ erledigt · ✗ fehlgeschlagen · → Folge · Δ Änderung · ! Risiko · ? Entscheidung nötig.
 Ziffern statt Zahlwörter. Pfade/Commands/Bezeichner in Backticks.
-Rückgabe ≤10 Zeilen. Ausgabesprache = Sprache dieses Prompts.
+Rückgabe ≤10 Zeilen. Ausgabesprache = Sprache der Aufgabe oben.
+Startest du selbst Sub-Agents: diesen Block an deren Prompts anhängen.
 ```
+
+Englischer Task → englischer Block:
+
+```
+Output format: telegram style. Result on line 1. One fact per line,
+no paragraphs, no preamble, no closing summary. Symbols:
+✓ done · ✗ failed · → consequence · Δ change · ! risk · ? decision needed.
+Digits, never number words. Paths/commands/identifiers in backticks.
+Return ≤10 lines. Output language = language of the task above.
+If you spawn sub-agents yourself, append this block to their prompts.
+```
+
+Andere Sprache → Block sinngemäß in dieser Sprache.
 
 Zusätzlich gilt:
 
