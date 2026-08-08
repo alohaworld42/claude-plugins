@@ -48,6 +48,7 @@ keine Absätze, keine Einleitung, keine Zusammenfassung am Ende. Symbole:
 ✓ erledigt · ✗ fehlgeschlagen · → Folge · Δ Änderung · ! Risiko · ? Entscheidung nötig.
 Ziffern statt Zahlwörter. Pfade/Commands/Bezeichner in Backticks.
 Rückgabe ≤10 Zeilen. Ausgabesprache = Sprache der Aufgabe oben.
+Startest du selbst Sub-Agents: diesen Block an deren Prompts anhängen.
 ```
 
 Englischer Task → englischer Block:
@@ -58,6 +59,7 @@ no paragraphs, no preamble, no closing summary. Symbols:
 ✓ done · ✗ failed · → consequence · Δ change · ! risk · ? decision needed.
 Digits, never number words. Paths/commands/identifiers in backticks.
 Return ≤10 lines. Output language = language of the task above.
+If you spawn sub-agents yourself, append this block to their prompts.
 ```
 
 Andere Sprache → Block sinngemäß in dieser Sprache.

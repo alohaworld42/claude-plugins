@@ -55,6 +55,19 @@ Inhaltlich kein Verlust: alle Läufe fanden den Off-by-one-Bug (und fixten ihn k
 
 **Funktioniert der Skill auf Englisch?** Nach einem Fix: ja. Der Retest reproduzierte den Sprach-Bug aus Iteration 1 an neuer Stelle — der **deutsche** Format-Block aus 1.1.0 zog englische Tasks auf Deutsch (beide Skill-Varianten antworteten deutsch auf einen englischen Prompt; die Zeile „Ausgabesprache = Sprache dieses Prompts" reichte nicht, weil der Block selbst Teil des Prompts ist). Fix in 1.2.0: der Block wird in der **Sprache des Task-Prompts** angehängt, englische Fassung liegt fertig im Skill. Re-Test verifiziert: Antwort vollständig englisch, 10 Zeilen, Format eingehalten, −69% Wörter gegen Baseline.
 
+## Propagations-Test (Iteration 3b, 2026-08-08)
+
+Getestet wurde zusätzlich, ob ein Haupt-Agent mit geladenem Skill die Sub-Agent-Regel wirklich **befolgt** (nicht nur, ob der Block wirkt): 2 Haupt-Agenten (Sonnet) bekamen SKILL.md als aktiven Skill und mussten eine Log-Analyse an einen eigenen Sub-Agent delegieren; geprüft wurde der exakte weitergereichte Prompt.
+
+| Test | Block angehängt? | Block-Sprache korrekt? | Rückgabe verdichtet statt durchgereicht? |
+|---|---|---|---|
+| Haupt-Agent deutsch | ✓ wortgleich | ✓ deutsch | ✓ 10 → 5 Zeilen |
+| Haupt-Agent englisch | ✓ wortgleich | ✓ englisch (neue 1.2.0-Regel) | ✓ |
+
+Gefundene Lücke: Der Block band nur die erste Ebene — ein Sub-Agent, der selbst Sub-Agents startet, reichte ihn nicht weiter. Fix: Block enthält jetzt eine Weiterreich-Zeile („Startest du selbst Sub-Agents: diesen Block an deren Prompts anhängen"), Propagation ist damit transitiv.
+
+Nicht von innen testbar bleibt das **Triggern** des Skills im Hauptchat (Description-Matching durch den Harness bei „kurz", „tldr" etc.) — das entscheidet die Plattform, nicht der Skill-Inhalt.
+
 ## Grenzen
 
 - `runs_per_configuration: 1` — schnelle Validierung, kein groß angelegtes Benchmark mit Streuung (stddev). Gilt auch für Iteration 3.
