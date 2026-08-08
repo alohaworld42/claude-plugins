@@ -67,7 +67,6 @@ Getestet wurde zusätzlich, ob ein Haupt-Agent mit geladenem Skill die Sub-Agent
 Gefundene Lücke: Der Block band nur die erste Ebene — ein Sub-Agent, der selbst Sub-Agents startet, reichte ihn nicht weiter. Fix: Block enthält jetzt eine Weiterreich-Zeile („Startest du selbst Sub-Agents: diesen Block an deren Prompts anhängen"), Propagation ist damit transitiv.
 
 Nicht von innen testbar bleibt das **Triggern** des Skills im Hauptchat (Description-Matching durch den Harness bei „kurz", „tldr" etc.) — das entscheidet die Plattform, nicht der Skill-Inhalt.
-
 ## Grenzen
 
 - `runs_per_configuration: 1` — schnelle Validierung, kein groß angelegtes Benchmark mit Streuung (stddev). Gilt auch für Iteration 3.
