@@ -7,6 +7,16 @@
   },
   "plugins": [
     {
+      "name": "github",
+      "source": "./plugins/github",
+      "description": "GitHub-Operationen über die gh CLI: Repos anlegen und veröffentlichen, Sichtbarkeit ändern, PR-Workflow, Releases — mit Sicherheitsregeln für destruktive Aktionen und Fallbacks für Umgebungen ohne gh.",
+      "version": "1.0.0",
+      "author": { "name": "alohaworld42" },
+      "license": "MIT",
+      "category": "workflow",
+      "keywords": ["github", "gh", "repo", "release", "pull-request", "publish", "deutsch"]
+    },
+    {
       "name": "orchestrator",
       "source": "./plugins/orchestrator",
       "description": "AI model routing protocols: Opus orchestrates design and review, Sonnet sub-agents execute, capped at 3 in parallel.",
