@@ -1,0 +1,10 @@
+{
+  "name": "deepfetch",
+  "displayName": "Deepfetch",
+  "version": "1.0.0",
+  "description": "Five-tier fetch escalation (direct, public-route, TLS impersonation, real browser, and — uniquely — the user's own browser cookies) for pages a plain fetch can't reach. Stops honestly at real login/paywall/captcha walls instead of faking success.",
+  "author": { "name": "alohaworld42" },
+  "repository": "https://github.com/alohaworld42/claude-plugins",
+  "license": "MIT",
+  "keywords": ["fetch", "scraping", "anti-bot", "waf-bypass", "playwright", "tls-impersonation", "cookies", "web"]
+}

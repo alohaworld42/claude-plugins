@@ -69,6 +69,18 @@ Either way the external store is the mirror, never the foundation — a service 
 
 Ships: skill `wrapup` → `/wrapup:wrapup`, plus `scripts/wrapup.py` and `scripts/recall.py`
 
+### deepfetch
+
+Five-tier fetch escalation for pages a plain fetch can't reach: `direct → public-route → tls → browser → cookies (opt-in) → browser+cookies`. Built to cover everything [insane-search](https://github.com/fivetaku/insane-search) and [playwright-bot-bypass](https://github.com/greekr4/playwright-bot-bypass) do, plus the one gap neither closes: a consent-gated **cookies tier** that reuses the user's own already-authenticated browser session for login-walled pages — the same access they already have by hand, never a credential bypass.
+
+- Stops honestly at real login/paywall/captcha/rate-limit walls — reports why instead of faking success.
+- Degrades cleanly with zero optional dependencies installed; `setup.py` reports exactly what's missing and the install command.
+- Cookies tier is off by default, requires explicit per-domain consent (`--allow-domain`) the agent must obtain from the user in chat first, and never persists a cookie value anywhere.
+
+Ships: skill `deepfetch` → `/deepfetch:deepfetch`, plus `scripts/deepfetch.py` (CLI) and 8 supporting modules.
+
+Verified live before shipping — 6 module self-tests, real network calls, 2 real bugs found and fixed with evidence: [plugins/deepfetch/README.md](plugins/deepfetch/README.md).
+
 ## Contributing a plugin
 
 Each plugin directory should carry its own `README.md` (sibling to `.claude-plugin/` and `skills/`) explaining what it does and why. Where the skill was validated with the skill-creator eval loop (fixtures, with/without-skill subagent comparison, benchmark), include the methodology and results there instead of asserting effectiveness without evidence — see `plugins/telegramm/README.md` for the pattern.
@@ -94,6 +106,10 @@ plugins/wrapup/
   .claude-plugin/plugin.json
   skills/wrapup/SKILL.md
   skills/wrapup/scripts/{wrapup,recall}.py
+plugins/deepfetch/
+  .claude-plugin/plugin.json
+  skills/deepfetch/SKILL.md
+  skills/deepfetch/scripts/{deepfetch,common,classify,extract,tier_direct,tier_tls,tier_browser,tier_cookies,setup}.py
 ```
 
 ## License
