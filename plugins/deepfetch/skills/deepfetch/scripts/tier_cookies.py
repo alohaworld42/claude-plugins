@@ -204,7 +204,7 @@ def fetch_with_cookies(
         )
 
     elapsed = int((time.monotonic() - t0) * 1000)
-    verdict = classify(resp.status_code, resp.text, dict(resp.headers))
+    verdict = classify(resp.status_code, resp.text, dict(resp.headers), final_url=resp.url)
     text = html_to_text(resp.text, base_url=url) if resp.text else ""
     structured = extract_structured(resp.text) if resp.text else {}
 

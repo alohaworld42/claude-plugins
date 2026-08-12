@@ -43,7 +43,7 @@ def fetch_direct(url: str, timeout: int = 15) -> FetchResult:
         )
 
     elapsed_ms = int((time.monotonic() - start) * 1000)
-    verdict = classify(resp.status_code, resp.text, dict(resp.headers))
+    verdict = classify(resp.status_code, resp.text, dict(resp.headers), final_url=resp.url)
     return FetchResult(
         url=url,
         tier="direct",

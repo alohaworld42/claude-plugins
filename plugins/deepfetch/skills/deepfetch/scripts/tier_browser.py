@@ -93,7 +93,7 @@ def _run_once(url: str, timeout: int, cookies: list[dict] | None, headed: bool) 
                 html = page.content()
 
                 elapsed = int((time.monotonic() - t0) * 1000)
-                verdict = classify(status or 200, html, {})
+                verdict = classify(status or 200, html, {}, final_url=final_url)
                 text = html_to_text(html, base_url=url) if html else ""
                 structured = extract_structured(html) if html else {}
 

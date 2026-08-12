@@ -65,7 +65,7 @@ def fetch_tls(url: str, timeout: int = 20) -> FetchResult:
             html = resp.text or ""
             final_url = str(resp.url) if resp.url else url
             headers = dict(resp.headers or {})
-            verdict = classify(status, html, headers)
+            verdict = classify(status, html, headers, final_url=final_url)
 
             result = FetchResult(
                 url=url,
