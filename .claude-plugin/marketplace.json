@@ -7,6 +7,16 @@
   },
   "plugins": [
     {
+      "name": "capabilities",
+      "source": "./plugins/capabilities",
+      "description": "Blendet zu Session-Start eine Fähigkeiten-Checkliste ein: echte CLIs in der Cloud nutzen, vor dem Antworten im Netz suchen, vorhandene Tools/Connectors prüfen bevor 'geht nicht', bei fehlendem Zugriff nach Tokens fragen. Gegen das Vergessen eigener Fähigkeiten.",
+      "version": "1.0.0",
+      "author": { "name": "alohaworld42" },
+      "license": "MIT",
+      "category": "workflow",
+      "keywords": ["capabilities", "session-start", "reminder", "tools", "cli", "web-search", "deutsch"]
+    },
+    {
       "name": "stfu",
       "source": "./plugins/stfu",
       "description": "Kommentarlos ausführen. Keine ungefragten Meinungen, keine Alternativvorschläge, keine Vorträge — Aufgabe rein, Ergebnis raus. Für User, die die Anweisung schon durchdacht haben und nur die Ausführung wollen.",

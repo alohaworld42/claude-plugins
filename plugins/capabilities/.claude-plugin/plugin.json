@@ -1,0 +1,10 @@
+{
+  "name": "capabilities",
+  "displayName": "Capability Brief",
+  "version": "1.0.0",
+  "description": "Blendet zu Session-Start eine Fähigkeiten-Checkliste ein: echte CLIs in der Cloud nutzen, vor dem Antworten im Netz suchen, vorhandene Tools/Connectors prüfen bevor 'geht nicht', bei fehlendem Zugriff nach Tokens fragen. Gegen das Vergessen eigener Fähigkeiten.",
+  "author": { "name": "alohaworld42" },
+  "repository": "https://github.com/alohaworld42/claude-plugins",
+  "license": "MIT",
+  "keywords": ["capabilities", "session-start", "reminder", "tools", "cli", "web-search", "deutsch"]
+}
