@@ -7,6 +7,16 @@
   },
   "plugins": [
     {
+      "name": "stfu",
+      "source": "./plugins/stfu",
+      "description": "Kommentarlos ausführen. Keine ungefragten Meinungen, keine Alternativvorschläge, keine Vorträge — Aufgabe rein, Ergebnis raus. Für User, die die Anweisung schon durchdacht haben und nur die Ausführung wollen.",
+      "version": "1.0.0",
+      "author": { "name": "alohaworld42" },
+      "license": "MIT",
+      "category": "workflow",
+      "keywords": ["execute", "no-commentary", "concise", "just-do-it", "deutsch"]
+    },
+    {
       "name": "github",
       "source": "./plugins/github",
       "description": "GitHub-Operationen über die gh CLI: Repos anlegen und veröffentlichen, Sichtbarkeit ändern, PR-Workflow, Releases — mit Sicherheitsregeln für destruktive Aktionen und Fallbacks für Umgebungen ohne gh.",
