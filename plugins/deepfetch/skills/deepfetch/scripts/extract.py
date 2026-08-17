@@ -49,7 +49,28 @@ def html_to_text(html: str, base_url: str = "") -> str:
         if _is_junk(tag):
             tag.decompose()
 
-    root = soup.find("article") or soup.find("main") or soup.find("body") or soup
+    # Pick the LARGEST article/main, not the first one. Taking the first match
+    # breaks on any page that leads with a teaser/related-content card: confirmed
+    # 2026-08-19 on a Snyk article page where article[0] was a 51-char
+    # class="card spotlight" teaser and article[1] held the real 37662-char body
+    # — find() returned the teaser and the whole article was silently dropped,
+    # while classify() still saw a full page in the raw HTML and reported "ok".
+    # A verdict of ok with 35 chars of text is the same class of dishonesty as
+    # returning a login page as content.
+    candidates = soup.find_all(["article", "main"])
+    body = soup.find("body")
+    body_len = len(body.get_text(strip=True)) if body else 0
+    best = max(candidates, key=lambda t: len(t.get_text(strip=True)), default=None)
+    best_len = len(best.get_text(strip=True)) if best is not None else 0
+
+    # If even the biggest semantic container holds only a sliver of the page's
+    # text, the markup isn't telling the truth about where the content lives —
+    # fall back to <body>, which the junk-tag pass above has already stripped of
+    # nav/header/footer/aside.
+    if best is not None and best_len >= max(200, body_len * 0.25):
+        root = best
+    else:
+        root = body or soup
 
     block_tags = [
         "p", "h1", "h2", "h3", "h4", "h5", "h6",
@@ -144,6 +165,37 @@ if __name__ == "__main__":
     assert "cookies, accept now" not in text
     assert "Related links junk" not in text
     assert "Copyright 2024 Footer Junk" not in text
+
+    # 1b. Regression: erstes <article> ist eine winzige Teaser-Karte, das echte
+    # Zielarticle kommt danach. find() haette die Karte genommen und den Artikel
+    # verworfen (real reproduziert auf einer Snyk-Artikelseite, 2026-08-19).
+    teaser_first_html = """
+    <html><body>
+      <main id="main-content">
+        <article class="card spotlight"><p>Live-Demo buchen</p></article>
+        <article class="content">
+          <h1>Der eigentliche Artikel</h1>
+          <p>%s</p>
+        </article>
+      </main>
+    </body></html>
+    """ % ("Ein langer Absatz mit echtem Inhalt. " * 40)
+    teaser_text = html_to_text(teaser_first_html)
+    assert "Der eigentliche Artikel" in teaser_text, \
+        "groesstes <article> muss gewinnen, nicht das erste"
+    assert len(teaser_text) > 500, \
+        f"Artikelkoerper fehlt, nur {len(teaser_text)} Zeichen extrahiert"
+
+    # 1c. Semantische Container zu klein (Content liegt in divs) -> body-Fallback.
+    weak_semantics_html = """
+    <html><body>
+      <article class="teaser"><p>kurz</p></article>
+      <div class="content"><p>%s</p></div>
+    </body></html>
+    """ % ("Der echte Inhalt steht hier in einem div. " * 30)
+    weak_text = html_to_text(weak_semantics_html)
+    assert "Der echte Inhalt steht hier" in weak_text, \
+        "bei zu kleinem <article> muss auf <body> zurueckgefallen werden"
 
     # 2. OGP-Tags vorhanden.
     ogp_html = """
