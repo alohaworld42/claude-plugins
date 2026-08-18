@@ -1,0 +1,8 @@
+{
+  "name": "folder-structure",
+  "version": "1.0.0",
+  "description": "Agent-ready project folder structure per Interpretable Context Methodology (ICM, arXiv:2603.16021): numbered stages, five-layer context hierarchy, stage contracts, output handoffs.",
+  "author": { "name": "alohaworld42" },
+  "license": "MIT",
+  "keywords": ["folder-structure", "icm", "workspace", "scaffold", "context-engineering", "orchestration"]
+}
