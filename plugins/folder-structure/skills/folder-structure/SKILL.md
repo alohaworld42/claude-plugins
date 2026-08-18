@@ -89,6 +89,14 @@ The Inputs list is the control point: it declares exactly which files (and which
 
 **Code repositories:** ICM targets content/agent workflows, not source trees. For a software repo, apply ICM to the agent-facing scaffolding (docs, prompts, pipeline folders) and leave the language ecosystem's conventions (`src/`, `tests/`, etc.) intact — never force numbered stage folders onto source code.
 
+**Keep the repo a clean single project (mandatory for code repos).** Nest the entire ICM workspace under ONE subdirectory (e.g. `analysis/`, `pipeline/`, `reports/`) so the repo root stays exactly as the language ecosystem expects. Rules:
+- The nested workspace's `analysis/CONTEXT.md` carries Layers 0+1 together — do **not** add a second `CLAUDE.md` at the repo root (it would collide with the repo's own and change root layout).
+- Touch nothing outside the workspace subdir: source, tests, build config, `Makefile`, CI, `.gitignore` stay byte-identical. Verify with `git diff --name-only` — every changed path must start with the workspace subdir.
+- The workspace **calls into** the code (`make demo`, a CLI, the public API) but never moves, renames, or restructures it. The dependency points one way: workspace → code, never the reverse.
+- State the boundary explicitly in the workspace's `CONTEXT.md` ("do not touch" list) so future runs and sub-agents inherit it.
+
+Result: the ICM pipeline and the software project coexist in one repo, each following its own conventions, with a single clean seam between them.
+
 ## Traversal rule for agents
 
 Read Layer 0 → Layer 1 → the current stage's Layer 2, then load only the contract's declared Layer 3/4 inputs. Sub-agents get the same treatment: the delegating agent fills sub-agent prompts from the same CONTEXT.md hierarchy — the folder structure is both the human's control surface and the orchestration logic.
