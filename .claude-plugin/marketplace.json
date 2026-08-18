@@ -27,6 +27,16 @@
       "keywords": ["execute", "no-commentary", "concise", "just-do-it", "deutsch"]
     },
     {
+      "name": "folder-structure",
+      "source": "./plugins/folder-structure",
+      "description": "Agent-taugliche Projekt-Ordnerstruktur nach der Interpretable Context Methodology (ICM, arXiv:2603.16021): nummerierte Stages, 5-Layer-Kontexthierarchie, Stage-Contracts in CONTEXT.md, Output-Übergaben zwischen Stages — für neue Projekte (Scaffold) und bestehende (Audit + Migration).",
+      "version": "1.0.0",
+      "author": { "name": "alohaworld42" },
+      "license": "MIT",
+      "category": "workflow",
+      "keywords": ["folder-structure", "icm", "workspace", "scaffold", "context-engineering", "deutsch"]
+    },
+    {
       "name": "github",
       "source": "./plugins/github",
       "description": "GitHub-Operationen über die gh CLI: Repos anlegen und veröffentlichen, Sichtbarkeit ändern, PR-Workflow, Releases — mit Sicherheitsregeln für destruktive Aktionen und Fallbacks für Umgebungen ohne gh.",
