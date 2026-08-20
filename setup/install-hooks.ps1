@@ -84,9 +84,29 @@ $newHooks = @{
     }
 }
 
+# PSObject -> Hashtable, rekursiv. Ersetzt ConvertFrom-Json -AsHashtable,
+# das erst ab PowerShell 6 existiert (Windows-Standard ist 5.1).
+function ConvertTo-HashtableRecursive {
+    param($InputObject)
+    if ($null -eq $InputObject) { return $null }
+    if ($InputObject -is [System.Collections.IEnumerable] -and $InputObject -isnot [string]) {
+        return @( foreach ($item in $InputObject) { ConvertTo-HashtableRecursive $item } )
+    }
+    if ($InputObject -is [PSCustomObject]) {
+        $ht = @{}
+        foreach ($prop in $InputObject.PSObject.Properties) {
+            $ht[$prop.Name] = ConvertTo-HashtableRecursive $prop.Value
+        }
+        return $ht
+    }
+    return $InputObject
+}
+
 if (Test-Path $settingsPath) {
-    $existing = Get-Content $settingsPath -Raw | ConvertFrom-Json -AsHashtable
-    Write-Host "[i] Bestehende settings.json gefunden — merge"
+    Copy-Item $settingsPath "$settingsPath.bak" -Force
+    $existing = ConvertTo-HashtableRecursive (Get-Content $settingsPath -Raw | ConvertFrom-Json)
+    if ($null -eq $existing) { $existing = @{} }
+    Write-Host "[i] Bestehende settings.json gefunden — merge (Backup: settings.json.bak)"
 } else {
     $existing = @{}
     Write-Host "[i] Keine settings.json vorhanden — neu anlegen"
@@ -97,6 +117,15 @@ $existing['hooks'] = $newHooks.hooks
 $json = $existing | ConvertTo-Json -Depth 10
 Set-Content -Path $settingsPath -Value $json -Encoding UTF8
 Write-Host "[+] settings.json aktualisiert: $settingsPath"
+
+# --- 4b. Verifizieren, dass die Hooks wirklich in der Datei stehen ---
+$check = Get-Content $settingsPath -Raw | ConvertFrom-Json
+if ($check.hooks.SessionStart -and $check.hooks.UserPromptSubmit) {
+    Write-Host "[OK] Hooks verifiziert in settings.json"
+} else {
+    Write-Host "[FEHLER] Hooks NICHT in settings.json gelandet — bitte Datei pruefen: $settingsPath" -ForegroundColor Red
+    exit 1
+}
 
 # --- 5. Zusammenfassung ---
 Write-Host ''
@@ -112,3 +141,10 @@ Write-Host '  STFU aus:       New-Item ~/.claude/stfu-off'
 Write-Host '  STFU an:        Remove-Item ~/.claude/stfu-off'
 Write-Host ''
 Write-Host 'Neuen Claude-Code-Chat starten, damit die Hooks greifen.'
+Write-Host ''
+Write-Host 'WO HOOKS LAUFEN:'
+Write-Host '  Claude Code CLI      : ja'
+Write-Host '  Claude Desktop-App   : ja'
+Write-Host '  VS-Code-Erweiterung  : NEIN — fuehrt Hooks nicht aus (Issue #21736)'
+Write-Host ''
+Write-Host 'Pruefen: /hooks im Chat zeigt aktive Hooks. Trace: claude --debug-file trace.log'
