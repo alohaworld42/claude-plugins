@@ -47,6 +47,16 @@
       "keywords": ["github", "gh", "repo", "release", "pull-request", "publish", "deutsch"]
     },
     {
+      "name": "restraint",
+      "source": "./plugins/restraint",
+      "description": "Vier Grenzen gegen Agent-Eagerness: weniger schreiben, nur das Verlangte tun, vor 'fertig' verifizieren, fragen statt raten. Gegen umgeschriebene Dateien, geratene Annahmen und over-engineering für Einzeiler.",
+      "version": "1.0.0",
+      "author": { "name": "alohaworld42" },
+      "license": "MIT",
+      "category": "workflow",
+      "keywords": ["restraint", "scope", "eagerness", "over-engineering", "discipline", "deutsch"]
+    },
+    {
       "name": "orchestrator",
       "source": "./plugins/orchestrator",
       "description": "AI model routing protocols: Opus orchestrates design and review, Sonnet sub-agents execute, capped at 3 in parallel.",

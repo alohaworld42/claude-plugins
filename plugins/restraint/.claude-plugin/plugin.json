@@ -1,0 +1,8 @@
+{
+  "name": "restraint",
+  "version": "1.0.0",
+  "description": "Four boundaries against agent eagerness: write less, do only what was asked, verify before claiming done, ask instead of guessing.",
+  "author": { "name": "alohaworld42" },
+  "license": "MIT",
+  "keywords": ["restraint", "scope", "eagerness", "over-engineering", "discipline", "concise"]
+}
