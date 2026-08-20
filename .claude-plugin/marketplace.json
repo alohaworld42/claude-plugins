@@ -49,8 +49,8 @@
     {
       "name": "restraint",
       "source": "./plugins/restraint",
-      "description": "Vier Grenzen gegen Agent-Eagerness: weniger schreiben, nur das Verlangte tun, vor 'fertig' verifizieren, fragen statt raten. Gegen umgeschriebene Dateien, geratene Annahmen und over-engineering für Einzeiler.",
-      "version": "1.0.0",
+      "description": "Vier Grenzen gegen Agent-Eagerness: weniger schreiben, chirurgisch ändern (kein ungefragtes Refactoring, fremder Dead Code bleibt), vor 'fertig' verifizieren (Tests-first), fragen statt raten (Interpretationen vorlegen, Widerspruch einlegen). Inklusive der Karpathy-Regeln zu LLM-Coding-Fallstricken.",
+      "version": "1.1.0",
       "author": { "name": "alohaworld42" },
       "license": "MIT",
       "category": "workflow",

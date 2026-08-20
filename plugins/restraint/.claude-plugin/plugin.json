@@ -1,7 +1,7 @@
 {
   "name": "restraint",
-  "version": "1.0.0",
-  "description": "Four boundaries against agent eagerness: write less, do only what was asked, verify before claiming done, ask instead of guessing.",
+  "version": "1.1.0",
+  "description": "Four boundaries against agent eagerness: write less, surgical changes only, verify before claiming done, ask instead of guessing. Incorporates the Karpathy LLM-coding-pitfall rules.",
   "author": { "name": "alohaworld42" },
   "license": "MIT",
   "keywords": ["restraint", "scope", "eagerness", "over-engineering", "discipline", "concise"]
