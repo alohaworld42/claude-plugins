@@ -2,9 +2,18 @@
   "name": "wrapup",
   "displayName": "Wrapup",
   "version": "1.1.0",
-  "description": "Gedächtnis über Sessions hinweg: am Session-Ende einen kompakten Digest lokal speichern, am Anfang gezielt zurückholen statt Kontext neu aufzubauen. Optionaler Notion-Spiegel (offizielle API) für Suche und Handy-Zugriff.",
-  "author": { "name": "alohaworld42" },
+  "description": "Memory across sessions: save a compact digest locally at session end, pull it back selectively at the start instead of rebuilding context. Optional Notion mirror (official API) for search and phone access.",
+  "author": {
+    "name": "alohaworld42"
+  },
   "repository": "https://github.com/alohaworld42/claude-plugins",
   "license": "MIT",
-  "keywords": ["memory", "session", "context", "recall", "tokens", "notebooklm", "deutsch"]
+  "keywords": [
+    "memory",
+    "session",
+    "context",
+    "recall",
+    "tokens",
+    "notebooklm"
+  ]
 }

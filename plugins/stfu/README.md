@@ -1,12 +1,12 @@
 # stfu
 
-Kommentarlos ausführen. Keine ungefragten Meinungen, keine Alternativvorschläge, keine Vorträge — Aufgabe rein, Ergebnis raus.
+Execute without commentary. No unsolicited opinions, no alternative suggestions, no lectures — task in, result out.
 
-## Zweck
+## Purpose
 
-Für den Fall, dass der User die Anweisung schon durchdacht hat und nur die Ausführung will. Der Skill unterdrückt beratendes Verhalten: Meinungen, Rückfragen aus Höflichkeit, „bessere Ansätze", Prozess-Prosa, Hedging.
+For when the user has already thought the instruction through and just wants it executed. The skill suppresses advisory behavior: opinions, politeness questions, "better approaches", process prose, hedging.
 
-Bewusst **nicht** unterdrückt werden die drei Fälle, in denen Schweigen teurer ist als Reden: echte Blocker, nicht ableitbare Mehrdeutigkeit, und irreversibler Schaden (Datenverlust, Secrets, Sicherheitslecks). Die werden in einer Zeile genannt — das ist Ausführungssicherheit, keine Meinung.
+Deliberately **not** suppressed are the three cases where silence costs more than speaking: real blockers, ambiguity that can't be derived, and irreversible damage (data loss, secrets, security holes). Those get one line — that's execution safety, not opinion.
 
 ## Installation
 
@@ -14,6 +14,6 @@ Bewusst **nicht** unterdrückt werden die drei Fälle, in denen Schweigen teurer
 /plugin install stfu@alohaworld-plugins
 ```
 
-## Abschalten
+## Off
 
-„normal mode" / „stop stfu" → zurück zu normalem, beratendem Verhalten.
+"normal mode" / "stop stfu" → back to normal, advisory behavior.

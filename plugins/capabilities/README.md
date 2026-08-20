@@ -1,24 +1,24 @@
 # capabilities
 
-Blendet zu Session-Start eine Fähigkeiten-Checkliste ein — gegen das Vergessen dessen, was die Umgebung tatsächlich kann.
+Surfaces a capability checklist at session start — against forgetting what the environment can actually do.
 
-## Zweck
+## Purpose
 
-Wiederkehrendes Muster: verfügbare Fähigkeiten werden übersehen und Aufgaben aus dem Gedächtnis beantwortet, statt die Umgebung zu nutzen. Dieses Plugin erinnert bei jedem Session-Start an sechs Punkte:
+Recurring pattern: available capabilities get overlooked and tasks are answered from memory instead of using the environment. This plugin reminds Claude of six points at every session start:
 
-1. Echte CLIs in der Cloud ausführen statt beschreiben
-2. Vor dem Antworten im Netz suchen (veränderliche Fakten)
-3. Vorhandene Tools/Connectors prüfen, bevor „geht nicht"
-4. Bei fehlendem Zugriff nach Tokens/Keys fragen
-5. Repos außerhalb der Scope per `add_repo` anhängen
-6. Vor „unmöglich" den realen Versuch machen
+1. Run real CLIs in the cloud instead of describing them
+2. Search the web before answering (volatile facts)
+3. Check existing tools/connectors before saying "can't"
+4. Ask for tokens/keys when access is missing
+5. Attach out-of-scope repos via `add_repo`
+6. Make the real attempt before declaring something "impossible"
 
-## Mechanik
+## Mechanics
 
-- `hooks/hooks.json` — `SessionStart`-Hook, der `reminder.txt` bei jedem Start als Kontext einblendet (Hooks führt die Harness aus, nicht das Modell — nur so feuert es automatisch).
-- `skills/capabilities/SKILL.md` — manuell abrufbare Vollfassung („capability check").
+- `hooks/hooks.json` — `SessionStart` hook that surfaces `reminder.txt` as context at every start (hooks are executed by the harness, not the model — that's the only way it fires automatically).
+- `skills/capabilities/SKILL.md` — the full version, available on demand ("capability check").
 
-Ein Skill allein triggert nur auf Stichworte; die automatische Einblendung leistet der Hook.
+A skill alone only triggers on keywords; the automatic surfacing is the hook's job.
 
 ## Installation
 
@@ -26,4 +26,4 @@ Ein Skill allein triggert nur auf Stichworte; die automatische Einblendung leist
 /plugin install capabilities@alohaworld-plugins
 ```
 
-Alternativ ohne Plugin-System (z. B. Remote-Session): den `SessionStart`-Hook direkt in `~/.claude/settings.json` eintragen und auf eine lokale Kopie von `reminder.txt` zeigen lassen.
+Alternatively, without the plugin system (e.g. a remote session): add the `SessionStart` hook directly to `~/.claude/settings.json` and point it at a local copy of `reminder.txt`.

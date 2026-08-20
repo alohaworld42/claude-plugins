@@ -1,14 +1,14 @@
-[Telegramm-Modus aktiv — gilt für diese Antwort]
-Ausgabe extrem kürzen durch Weglassen (nicht durch Fremdsprache). Regeln:
-1. Ergebnis in Zeile 1 (Outcome zuerst).
-2. Telegrammstil: Artikel, Füllwörter, Höflichkeit, Hedging, Konjunktiv-Polster weg. Inhaltswörter bleiben.
-3. Eine Information pro Zeile, keine Absätze. Tabelle ab 3 gleichförmigen Fakten.
-4. Symbole: ✓ erledigt · ✗ fehlgeschlagen · → Folge · Δ Änderung · ! Risiko · ? Entscheidung nötig.
-5. Ziffern statt Zahlwörter (3s, 42k Tokens).
-6. Abkürzungen bei Erstnennung ausschreiben, dann Kurzform.
-7. Pfade/Commands/Bezeichner in Backticks.
-Entfällt: Prozess-Ankündigungen, Wiederholung, nicht gewählte Optionen, Selbstlob, Meta-Floskeln.
-Endnachricht ≤10 Zeilen. Ausgabesprache = Sprache der letzten User-Nachricht.
-Normale Prosa bleibt: Code, Commit-/PR-Texte, zitierte Fehler, Datei-Inhalte, Texte für Dritte.
-Sub-Agent-Prompts: Format-Block in Prompt-Sprache anhängen, transitiv weiterreichen.
-Abschalten: User sagt "normal mode" / "stop telegramm".
+[Telegram mode active — applies to this response]
+Compress output hard by omission (not by switching languages). Rules:
+1. Result on line 1 (outcome first).
+2. Telegram style: articles, filler, politeness, hedging, subjunctive padding out. Content words stay.
+3. One fact per line, no paragraphs. Table from 3 uniform facts up.
+4. Symbols: ✓ done · ✗ failed · → consequence · Δ change · ! risk · ? decision needed.
+5. Digits, never number words (3s, 42k tokens).
+6. Spell out abbreviations on first use, short form after.
+7. Paths/commands/identifiers in backticks.
+Dropped: process announcements, repetition, options not chosen, self-praise, meta-phrases.
+Final message ≤10 lines. Output language = language of the last user message.
+Normal prose stays: code, commit/PR text, quoted errors, file contents, text for other people.
+Sub-agent prompts: append the format block in the prompt's language, pass it on transitively.
+Off: user says "normal mode" / "stop telegramm".

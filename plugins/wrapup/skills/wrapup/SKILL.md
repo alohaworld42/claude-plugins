@@ -1,108 +1,108 @@
 ---
 name: wrapup
-description: Gedächtnis über Sessions hinweg — am Ende einer Session einen kompakten Digest speichern (Entscheidungen, Gotchas, Stand, offene Punkte), am Anfang der nächsten gezielt zurückholen statt Kontext neu aufzubauen. Lokal plus optionaler Notion-Spiegel. Nutzen wenn der User sagt "wrapup", "wrap up", "session speichern", "merk dir das für nächstes Mal", "was hatten wir letztes Mal", "worauf sind wir stehengeblieben", "erinnerst du dich an", eine Session abschließt, oder nach früheren Entscheidungen/Fixes fragt.
+description: Memory across sessions — save a compact digest at the end of a session (decisions, gotchas, status, open items), pull it back selectively at the start of the next instead of rebuilding context. Local plus an optional Notion mirror. Use when the user says "wrapup", "wrap up", "save this session", "remember this for next time", "what did we do last time", "where did we leave off", "do you remember", closes out a session, or asks about earlier decisions/fixes.
 ---
 
-# Wrapup — Gedächtnis über Sessions
+# Wrapup — Memory Across Sessions
 
-Jede neue Session startet bei null. Kontext neu aufbauen kostet Tokens und Zeit — und was in der letzten Session entschieden wurde, geht verloren. Dieser Skill löst das mit zwei Bewegungen: **am Ende speichern** (`wrapup.py`), **am Anfang gezielt holen** (`recall.py`).
+Every new session starts at zero. Rebuilding context costs tokens and time — and whatever was decided last session is lost. This skill solves that with two moves: **save at the end** (`wrapup.py`), **pull back selectively at the start** (`recall.py`).
 
-Die Ersparnis kommt nicht vom Komprimieren, sondern vom **selektiven Laden**: `INDEX.md` ist winzig (1 Zeile pro Session), `recall.py` zeigt nur passende Treffer, und erst dann wird ein einzelner Digest gelesen. Nie die ganze Historie.
+The saving doesn't come from compression but from **selective loading**: `INDEX.md` is tiny (1 line per session), `recall.py` shows only matching hits, and only then is a single digest read. Never the whole history.
 
-Store: `~/.claude/wrapup/` (`sessions/*.md` + `INDEX.md`). Override per `WRAPUP_STORE`.
-Skripte: `${CLAUDE_PLUGIN_ROOT}/skills/wrapup/scripts/`.
+Store: `~/.claude/wrapup/` (`sessions/*.md` + `INDEX.md`). Override via `WRAPUP_STORE`.
+Scripts: `${CLAUDE_PLUGIN_ROOT}/skills/wrapup/scripts/`.
 
-## Speichern (Session-Ende)
+## Saving (end of session)
 
-Nur das schreiben, was eine **künftige Session** wissen muss. Es geht nicht um ein Protokoll — es geht darum, dass das nächste Ich nicht dieselbe Sackgasse noch mal läuft.
+Write only what a **future session** needs to know. This is not a transcript — it's about the next you not walking into the same dead end again.
 
-Rein gehört:
-- **Entscheidungen + Begründung.** „X statt Y, weil Z." Ohne das Warum wird die Entscheidung beim nächsten Mal neu diskutiert.
-- **Gotchas.** Was überraschend war, kaputt ging, oder nur mit einem Trick lief. Der wertvollste Teil — das steht in keiner Doku.
-- **Stand.** Wo die Sache jetzt steht, in einem Satz.
-- **Offene Punkte.** Was bewusst nicht gemacht wurde.
-- **Zeiger.** Datei-Pfade, Repos, URLs, Commit-SHAs. Pfade, keine Inhalte.
+Goes in:
+- **Decisions + rationale.** "X instead of Y, because Z." Without the why, the decision gets re-litigated next time.
+- **Gotchas.** What surprised you, broke, or only worked with a trick. The most valuable part — it's in no documentation.
+- **Status.** Where the thing stands now, in one sentence.
+- **Open items.** What was deliberately left undone.
+- **Pointers.** File paths, repos, URLs, commit SHAs. Paths, not contents.
 
-Raus bleibt: Gesprächsverlauf, Code-Dumps (der Code liegt im Repo), Selbstverständliches, alles was aus `git log` hervorgeht.
+Stays out: conversation history, code dumps (the code is in the repo), the obvious, anything derivable from `git log`.
 
 ```bash
 python "${CLAUDE_PLUGIN_ROOT}/skills/wrapup/scripts/wrapup.py" \
   --title "Marketplace Setup" --project claude-plugins --tags "marketplace,plugins" <<'EOF'
-## Entscheidungen
-- Marketplace public statt privat, damit Fremde ohne Auth installieren
+## Decisions
+- Marketplace public instead of private, so outsiders can install without auth
 
 ## Gotchas
-- Version-Pin blockt Updates: ohne Bump zieht `plugin update` nichts
+- Version pin blocks updates: without a bump, `plugin update` pulls nothing
 
-## Stand
-- 4 Plugins live
+## Status
+- 4 plugins live
 EOF
 ```
 
-Body kommt über stdin (oder `--content-file PATH`). Leerer Body → Exit 1, nichts geschrieben. Das Skript legt den Digest an und setzt die Index-Zeile oben ein.
+The body comes via stdin (or `--content-file PATH`). Empty body → exit 1, nothing written. The script creates the digest and inserts the index line at the top.
 
-`--title` wird zum Dateinamen (Umlaute werden transliteriert), `--project` und `--tags` machen `recall` filterbar. Beides optional, beides lohnt sich.
+`--title` becomes the filename (non-ASCII is transliterated), `--project` and `--tags` make `recall` filterable. Both optional, both worth it.
 
-## Zurückholen (Session-Start oder bei Bedarf)
+## Recalling (session start or on demand)
 
 ```bash
 python "${CLAUDE_PLUGIN_ROOT}/skills/wrapup/scripts/recall.py" version pin update
 ```
 
-Ausgabe: gerankte Digests mit Pfad und passenden Zeilen. **Dann erst** den relevanten Digest mit `Read` öffnen — nicht alle. Suchbegriffe werden alle kleingeschrieben; wer mehr Terme trifft, rankt höher.
+Output: ranked digests with path and matching lines. **Only then** open the relevant digest with `Read` — not all of them. Search terms are all lowercased; more terms matched ranks higher.
 
-Optionen: `--project <name>` grenzt auf ein Projekt ein, `--limit N` (Default 5) begrenzt die Treffer, `--context N` (Default 2) die Zeilen pro Treffer.
+Options: `--project <name>` narrows to one project, `--limit N` (default 5) caps hits, `--context N` (default 2) the lines per hit.
 
-Kein Treffer → sag das und arbeite ohne. Erfinde nichts aus dem Gedächtnis, was nicht im Store steht.
+No hit → say so and work without. Don't invent from memory what isn't in the store.
 
-Für „was hatten wir zuletzt" ohne konkreten Suchbegriff: `~/.claude/wrapup/INDEX.md` lesen — die Datei ist klein genug, um sie ganz zu laden.
+For "what did we do last time" without a specific search term: read `~/.claude/wrapup/INDEX.md` — the file is small enough to load whole.
 
-## Optional: Notion-Spiegel (empfohlener Zweitspeicher)
+## Optional: Notion mirror (recommended secondary store)
 
-Wer Notion nutzt, bekommt damit Volltext-/Semantiksuche über alle Sessions, Zugriff vom Handy und strukturierte Filter — über die **offizielle** Notion-API und den offiziellen MCP-Server. Kein Browser-Hack, keine undokumentierten Endpunkte.
+If you use Notion, this gives you full-text/semantic search across all sessions, phone access, and structured filters — via the **official** Notion API and the official MCP server. No browser hack, no undocumented endpoints.
 
-Ablauf nach dem lokalen Schreiben (der lokale Digest ist immer die Basis):
+Flow after the local write (the local digest is always the base):
 
-1. **Datenbank finden.** Cache lesen: `~/.claude/wrapup/notion.json` (`{"data_source_id": "..."}`). Fehlt die Datei → mit `notion-search` nach einer Datenbank „Claude Session Log" suchen, `data_source_id` in den Cache schreiben.
-2. **Fehlt sie ganz**, dem User anbieten sie anzulegen (nicht ungefragt) — `notion-create-database`:
+1. **Find the database.** Read the cache: `~/.claude/wrapup/notion.json` (`{"data_source_id": "..."}`). File missing → search with `notion-search` for a "Claude Session Log" database, write `data_source_id` into the cache.
+2. **If it doesn't exist at all**, offer to create it (don't do it unasked) — `notion-create-database`:
    ```
-   CREATE TABLE ("Titel" TITLE, "Datum" DATE,
-                 "Projekt" SELECT('sonstiges':gray),
-                 "Tags" MULTI_SELECT('memory':purple, 'gotcha':red, 'entscheidung':blue, 'setup':gray),
-                 "Stand" RICH_TEXT COMMENT 'Ein Satz: wo die Sache steht')
+   CREATE TABLE ("Title" TITLE, "Date" DATE,
+                 "Project" SELECT('other':gray),
+                 "Tags" MULTI_SELECT('memory':purple, 'gotcha':red, 'decision':blue, 'setup':gray),
+                 "Status" RICH_TEXT COMMENT 'One sentence: where the thing stands')
    ```
-3. **Push** mit `notion-create-pages`, `parent = {type: "data_source_id", data_source_id: <id>}`. Properties `Titel`/`Datum`/`Projekt`/`Tags`/`Stand` setzen, Digest-Body als `content` (Markdown, ohne Titel-Überschrift — der Titel steckt in den Properties).
+3. **Push** with `notion-create-pages`, `parent = {type: "data_source_id", data_source_id: <id>}`. Set the `Title`/`Date`/`Project`/`Tags`/`Status` properties, digest body as `content` (Markdown, without a title heading — the title lives in the properties).
 
-Der Push läuft agent-seitig über MCP, nicht im Skript: Ein Digest ist eine Synthese der Session — die kann nur das Modell erzeugen, kein Skript und kein Hook.
+The push runs agent-side via MCP, not in the script: a digest is a synthesis of the session — only the model can produce that, no script and no hook.
 
-### Recall aus Notion
+### Recall from Notion
 
-Zwei Wege, beide verifiziert:
+Two ways, both verified:
 
-- **`notion-search`** mit normaler Suchanfrage — findet Digests workspace-weit inklusive Trefferzeile. Der schnelle Standardweg.
-- **`notion-query-data-sources`** (SQL) für strukturierte Fragen — „alle Sessions zu Projekt X, neueste zuerst":
+- **`notion-search`** with a normal query — finds digests workspace-wide including the matching line. The fast default.
+- **`notion-query-data-sources`** (SQL) for structured questions — "all sessions for project X, newest first":
   ```sql
-  SELECT "Titel", "date:Datum:start" AS Datum, "Stand", url
+  SELECT "Title", "date:Date:start" AS Date, "Status", url
   FROM "collection://<data_source_id>"
-  WHERE "Projekt" = ? ORDER BY "date:Datum:start" DESC LIMIT 5
+  WHERE "Project" = ? ORDER BY "date:Date:start" DESC LIMIT 5
   ```
 
-Gotcha: `notion-search` mit `data_source_url` (semantische Suche innerhalb der DB) lieferte direkt nach dem Anlegen einer Seite **leer** zurück — der Index braucht Zeit. Workspace-Suche und SQL-Query greifen sofort. Bei frischen Digests also nicht auf `data_source_url` setzen.
+Gotcha: `notion-search` with `data_source_url` (semantic search inside the DB) returned **empty** right after a page was created — the index needs time. Workspace search and SQL query work immediately. So don't rely on `data_source_url` for fresh digests.
 
 ## Alternative: NotebookLM
 
-`--push-notebooklm` schickt den Digest stattdessen als Notiz an NotebookLM (Gemini Notebook) — interessant nur wegen dessen Medien-Features (Audio/Video-Overviews, Infografiken).
+`--push-notebooklm` sends the digest to NotebookLM (Gemini Notebook) as a note instead — interesting only for its media features (audio/video overviews, infographics).
 
 ```bash
 ... | python ".../wrapup.py" --title "..." --push-notebooklm --notebook <id>
 ```
 
-Voraussetzung: `notebooklm` CLI installiert und eingeloggt (`uv tool install notebooklm-py`, dann `notebooklm login`). Ohne `--notebook` gilt das aktive Notebook, oder setze `WRAPUP_NOTEBOOK`. Fehlt die CLI, meldet das Skript `skipped` und der lokale Digest steht trotzdem.
+Requires the `notebooklm` CLI installed and logged in (`uv tool install notebooklm-py`, then `notebooklm login`). Without `--notebook` the active notebook applies, or set `WRAPUP_NOTEBOOK`. If the CLI is missing, the script reports `skipped` and the local digest still exists.
 
-**Erwartungshaltung:** `notebooklm-py` läuft auf undokumentierten Google-Endpunkten; eine öffentliche NotebookLM-API gibt es nicht (Stand 08/2026, nur Enterprise). Kann jederzeit brechen. Wer Notion hat, nimmt Notion.
+**Expectations:** `notebooklm-py` runs on undocumented Google endpoints; there is no public NotebookLM API (as of 08/2026, Enterprise only). Can break at any time. If you have Notion, use Notion.
 
-**Grundregel für beide:** lokaler Store ist die Basis, der Spiegel ist die Kür. Ein externer Dienst darf nie das einzige Gedächtnis sein — sonst ist es weg, wenn der Anbieter etwas ändert.
+**Ground rule for both:** the local store is the base, the mirror is a bonus. An external service must never be the only memory — otherwise it's gone when the provider changes something.
 
-## Automatisch statt manuell
+## Automatic instead of manual
 
-Der Skill triggert auf Zuruf. Wer den Digest **immer** am Session-Ende will, braucht einen `Stop`-Hook in `settings.json` — Hooks führt die Harness aus, nicht das Modell. Danach fragen, wenn der User das möchte; ungefragt keine Hooks installieren.
+The skill triggers on request. If you want the digest **always** at session end, you need a `Stop` hook in `settings.json` — hooks are executed by the harness, not the model. Ask about it if the user wants that; never install hooks unasked.

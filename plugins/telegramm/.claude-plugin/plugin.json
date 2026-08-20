@@ -2,9 +2,16 @@
   "name": "telegramm",
   "displayName": "Telegramm",
   "version": "1.2.0",
-  "description": "Extreme Ausgabe-Kürzung für alle Claude-Texte inklusive Sub-Agent-Rückgaben — Telegrammstil, Symbole, Ergebnis zuerst, hartes Zeilenbudget. Spart Lesezeit und Tokens durch Weglassen vor dem Schreiben, nicht durch Fremdsprach-Kompression.",
-  "author": { "name": "alohaworld42" },
+  "description": "Extreme output compression for all Claude text including sub-agent returns — telegram style, symbols, result first, hard line budget. Saves reading time and tokens by omitting before writing, not by foreign-language compression.",
+  "author": {
+    "name": "alohaworld42"
+  },
   "repository": "https://github.com/alohaworld42/claude-plugins",
   "license": "MIT",
-  "keywords": ["output", "concise", "brevity", "tokens", "deutsch", "german"]
+  "keywords": [
+    "output",
+    "concise",
+    "brevity",
+    "tokens"
+  ]
 }

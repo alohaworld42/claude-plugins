@@ -9,112 +9,211 @@
     {
       "name": "capabilities",
       "source": "./plugins/capabilities",
-      "description": "Blendet zu Session-Start eine Fähigkeiten-Checkliste ein: echte CLIs in der Cloud nutzen, vor dem Antworten im Netz suchen, vorhandene Tools/Connectors prüfen bevor 'geht nicht', bei fehlendem Zugriff nach Tokens fragen. Gegen das Vergessen eigener Fähigkeiten.",
+      "description": "Surfaces a capability checklist at session start: use real CLIs in the cloud, search the web before answering, check existing tools/connectors before saying 'can't', ask for tokens when access is missing. Against forgetting your own capabilities.",
       "version": "1.0.0",
-      "author": { "name": "alohaworld42" },
+      "author": {
+        "name": "alohaworld42"
+      },
       "license": "MIT",
       "category": "workflow",
-      "keywords": ["capabilities", "session-start", "reminder", "tools", "cli", "web-search", "deutsch"]
+      "keywords": [
+        "capabilities",
+        "session-start",
+        "reminder",
+        "tools",
+        "cli",
+        "web-search"
+      ]
     },
     {
       "name": "stfu",
       "source": "./plugins/stfu",
-      "description": "Kommentarlos ausführen. Keine ungefragten Meinungen, keine Alternativvorschläge, keine Vorträge — Aufgabe rein, Ergebnis raus. Für User, die die Anweisung schon durchdacht haben und nur die Ausführung wollen.",
+      "description": "Execute without commentary. No unsolicited opinions, no alternative suggestions, no lectures — task in, result out. For users who have already thought the instruction through and just want it executed.",
       "version": "1.0.0",
-      "author": { "name": "alohaworld42" },
+      "author": {
+        "name": "alohaworld42"
+      },
       "license": "MIT",
       "category": "workflow",
-      "keywords": ["execute", "no-commentary", "concise", "just-do-it", "deutsch"]
+      "keywords": [
+        "execute",
+        "no-commentary",
+        "concise",
+        "just-do-it"
+      ]
     },
     {
       "name": "folder-structure",
       "source": "./plugins/folder-structure",
-      "description": "Agent-taugliche Projekt-Ordnerstruktur nach der Interpretable Context Methodology (ICM, arXiv:2603.16021): nummerierte Stages, 5-Layer-Kontexthierarchie, Stage-Contracts in CONTEXT.md, Output-Übergaben zwischen Stages — für neue Projekte (Scaffold) und bestehende (Audit + Migration).",
+      "description": "Agent-ready project folder structure per the Interpretable Context Methodology (ICM, arXiv:2603.16021): numbered stages, five-layer context hierarchy, stage contracts in CONTEXT.md, output handoffs between stages — for new projects (scaffold) and existing ones (audit + migration).",
       "version": "1.0.0",
-      "author": { "name": "alohaworld42" },
+      "author": {
+        "name": "alohaworld42"
+      },
       "license": "MIT",
       "category": "workflow",
-      "keywords": ["folder-structure", "icm", "workspace", "scaffold", "context-engineering", "deutsch"]
+      "keywords": [
+        "folder-structure",
+        "icm",
+        "workspace",
+        "scaffold",
+        "context-engineering"
+      ]
     },
     {
       "name": "github",
       "source": "./plugins/github",
-      "description": "GitHub-Operationen über die gh CLI: Repos anlegen und veröffentlichen, Sichtbarkeit ändern, PR-Workflow, Releases — mit Sicherheitsregeln für destruktive Aktionen und Fallbacks für Umgebungen ohne gh.",
+      "description": "GitHub operations via the gh CLI: create and publish repos, change visibility, PR workflow, releases — with safety rules for destructive actions and fallbacks for environments without gh.",
       "version": "1.0.0",
-      "author": { "name": "alohaworld42" },
+      "author": {
+        "name": "alohaworld42"
+      },
       "license": "MIT",
       "category": "workflow",
-      "keywords": ["github", "gh", "repo", "release", "pull-request", "publish", "deutsch"]
+      "keywords": [
+        "github",
+        "gh",
+        "repo",
+        "release",
+        "pull-request",
+        "publish"
+      ]
     },
     {
       "name": "restraint",
       "source": "./plugins/restraint",
-      "description": "Vier Grenzen gegen Agent-Eagerness: weniger schreiben, chirurgisch ändern (kein ungefragtes Refactoring, fremder Dead Code bleibt), vor 'fertig' verifizieren (Tests-first), fragen statt raten (Interpretationen vorlegen, Widerspruch einlegen). Inklusive der Karpathy-Regeln zu LLM-Coding-Fallstricken.",
+      "description": "Four boundaries against agent eagerness: write less, surgical changes only (no unasked refactors, foreign dead code stays), verify before 'done' (tests-first), ask instead of guessing (present interpretations, push back). Includes the Karpathy rules on LLM coding pitfalls.",
       "version": "1.1.0",
-      "author": { "name": "alohaworld42" },
+      "author": {
+        "name": "alohaworld42"
+      },
       "license": "MIT",
       "category": "workflow",
-      "keywords": ["restraint", "scope", "eagerness", "over-engineering", "discipline", "deutsch"]
+      "keywords": [
+        "restraint",
+        "scope",
+        "eagerness",
+        "over-engineering",
+        "discipline"
+      ]
     },
     {
       "name": "orchestrator",
       "source": "./plugins/orchestrator",
       "description": "AI model routing protocols: Opus orchestrates design and review, Sonnet sub-agents execute, capped at 3 in parallel.",
       "version": "1.0.0",
-      "author": { "name": "alohaworld42" },
+      "author": {
+        "name": "alohaworld42"
+      },
       "license": "MIT",
       "category": "workflow",
-      "keywords": ["orchestrator", "delegation", "sub-agents", "model-routing", "opus", "sonnet"]
+      "keywords": [
+        "orchestrator",
+        "delegation",
+        "sub-agents",
+        "model-routing",
+        "opus",
+        "sonnet"
+      ]
     },
     {
       "name": "seo",
       "source": "./plugins/seo",
       "description": "Audit and fix a site's SEO: technical, on-page, Core Web Vitals, structured data, E-E-A-T content, and AI-search (GEO) readiness — evidence-backed findings, then real fixes in the codebase.",
       "version": "1.0.1",
-      "author": { "name": "alohaworld42" },
+      "author": {
+        "name": "alohaworld42"
+      },
       "license": "MIT",
       "category": "workflow",
-      "keywords": ["seo", "audit", "structured-data", "core-web-vitals", "geo", "ai-search", "e-e-a-t"]
+      "keywords": [
+        "seo",
+        "audit",
+        "structured-data",
+        "core-web-vitals",
+        "geo",
+        "ai-search",
+        "e-e-a-t"
+      ]
     },
     {
       "name": "seo-de",
       "source": "./plugins/seo-de",
       "description": "SEO-Audit und -Fixes auf Deutsch: technisch, On-Page, Core Web Vitals, strukturierte Daten, E-E-A-T und KI-Suche (GEO) — plus DACH-Spezifika wie Impressumspflicht, Umlaut-URLs und hreflang für DE/AT/CH.",
       "version": "1.0.1",
-      "author": { "name": "alohaworld42" },
+      "author": {
+        "name": "alohaworld42"
+      },
       "license": "MIT",
       "category": "workflow",
-      "keywords": ["seo", "deutsch", "german", "dach", "audit", "structured-data", "core-web-vitals", "geo", "e-e-a-t"]
+      "keywords": [
+        "seo",
+        "deutsch",
+        "german",
+        "dach",
+        "audit",
+        "structured-data",
+        "core-web-vitals",
+        "geo",
+        "e-e-a-t"
+      ]
     },
     {
       "name": "telegramm",
       "source": "./plugins/telegramm",
-      "description": "Extreme Ausgabe-Kürzung für alle Claude-Texte inklusive Sub-Agent-Rückgaben — Telegrammstil, Symbole, Ergebnis zuerst, hartes Zeilenbudget. Spart Lesezeit und Tokens durch Weglassen vor dem Schreiben, nicht durch Fremdsprach-Kompression.",
+      "description": "Extreme output compression for all Claude text including sub-agent returns — telegram style, symbols, result first, hard line budget. Saves reading time and tokens by omitting before writing, not by foreign-language compression.",
       "version": "1.2.0",
-      "author": { "name": "alohaworld42" },
+      "author": {
+        "name": "alohaworld42"
+      },
       "license": "MIT",
       "category": "workflow",
-      "keywords": ["output", "concise", "brevity", "tokens", "deutsch", "german"]
+      "keywords": [
+        "output",
+        "concise",
+        "brevity",
+        "tokens"
+      ]
     },
     {
       "name": "wrapup",
       "source": "./plugins/wrapup",
-      "description": "Gedächtnis über Sessions hinweg: am Session-Ende einen kompakten Digest lokal speichern, am Anfang gezielt zurückholen statt Kontext neu aufzubauen. Optionaler Notion-Spiegel (offizielle API) für Suche und Handy-Zugriff.",
+      "description": "Memory across sessions: save a compact digest locally at session end, pull it back selectively at the start instead of rebuilding context. Optional Notion mirror (official API) for search and phone access.",
       "version": "1.1.0",
-      "author": { "name": "alohaworld42" },
+      "author": {
+        "name": "alohaworld42"
+      },
       "license": "MIT",
       "category": "workflow",
-      "keywords": ["memory", "session", "context", "recall", "tokens", "notebooklm", "deutsch"]
+      "keywords": [
+        "memory",
+        "session",
+        "context",
+        "recall",
+        "tokens",
+        "notebooklm"
+      ]
     },
     {
       "name": "deepfetch",
       "source": "./plugins/deepfetch",
       "description": "Five-tier fetch escalation (direct, public-route, TLS impersonation, real browser, and — uniquely — the user's own browser cookies) for pages a plain fetch can't reach. Stops honestly at real login/paywall/captcha walls instead of faking success.",
       "version": "1.0.2",
-      "author": { "name": "alohaworld42" },
+      "author": {
+        "name": "alohaworld42"
+      },
       "license": "MIT",
       "category": "workflow",
-      "keywords": ["fetch", "scraping", "anti-bot", "waf-bypass", "playwright", "tls-impersonation", "cookies", "web"]
+      "keywords": [
+        "fetch",
+        "scraping",
+        "anti-bot",
+        "waf-bypass",
+        "playwright",
+        "tls-impersonation",
+        "cookies",
+        "web"
+      ]
     }
   ]
 }

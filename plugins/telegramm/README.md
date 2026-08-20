@@ -1,75 +1,75 @@
 # telegramm
 
-Erklärt: wofür der Skill da ist, wie er getestet wurde, wie effizient er ist.
+What the skill is for, how it was tested, how efficient it is.
 
-## Zweck
+## Purpose
 
-Jedes ausgegebene Wort kostet doppelt: Lesezeit des Users UND Tokens — gleicher Hebel, weniger Wörter senkt beides. `telegramm` erzwingt Ergebnis-zuerst, Telegrammstil, Symbole statt Prosa, hartes Zeilenbudget für Status-Updates und Endnachrichten.
+Every word emitted costs twice: the user's reading time AND tokens — same lever, fewer words lowers both. `telegramm` enforces result-first, telegram style, symbols instead of prose, and a hard line budget for status updates and final messages.
 
-Kürzen passiert durch **Auswahl vor dem Schreiben**, nicht durch Fremdsprach-Kompression (kein Mandarin-Trick) und nicht durch Schreiben-dann-Streichen — verworfene Zeilen sind bereits bezahlte Tokens. Details: [SKILL.md](skills/telegramm/SKILL.md).
+Compression happens through **selection before writing**, not through foreign-language compression (no Mandarin trick) and not through write-then-trim — discarded lines are already-paid tokens. Details: [SKILL.md](skills/telegramm/SKILL.md).
 
-## Sub-Agents (ab 1.1.0)
+## Sub-agents (since 1.1.0)
 
-Sub-Agents starten mit eigenem Kontext, in dem der Skill nicht geladen ist — ihre Rückgaben kamen deshalb weiterhin als Fließtext zurück und blähten die Endnachricht des Haupt-Agents auf. Seit 1.1.0 enthält der Skill einen Format-Block, den der Haupt-Agent an jeden Sub-Agent-Prompt anhängt, plus die Regel, Sub-Agent-Ergebnisse zu verdichten statt durchzureichen.
+Sub-agents start with their own context, where the skill isn't loaded — so their returns kept coming back as flowing prose and bloated the main agent's final message. Since 1.1.0 the skill contains a format block that the main agent appends to every sub-agent prompt, plus the rule to condense sub-agent results instead of passing them through.
 
-## Eval-Methodik
+## Eval methodology
 
-3 Testfälle, je ein Subagent **mit** Skill gegen einen Baseline-Subagent **ohne** Skill, identischer Prompt, gleiches Modell (Sonnet, low effort):
+3 test cases, one subagent **with** the skill against a baseline subagent **without**, identical prompt, same model (Sonnet, low effort):
 
-| Eval | Aufgabe | Sprache |
+| Eval | Task | Language |
 |---|---|---|
-| `eval-0-debug-report` | Bug in `calc.js` finden + fixen + berichten | Deutsch |
-| `eval-1-multistep-status` | Mini-Node-Projekt anlegen, Fortschritt melden | Deutsch |
-| `eval-2-log-analysis` | Crash-Log lesen, Ursache + Fix berichten | Englisch |
+| `eval-0-debug-report` | Find + fix a bug in `calc.js` and report | German |
+| `eval-1-multistep-status` | Create a mini Node project, report progress | German |
+| `eval-2-log-analysis` | Read a crash log, report cause + fix | English |
 
-Fixtures unter `fixtures/` (Repo mit dem Eval-Workspace, nicht Teil des Plugins). Assertions pro Fall geprüft (Inhalt korrekt? Format eingehalten?), aggregiert in `benchmark.json`.
+Fixtures under `fixtures/` (repo with the eval workspace, not part of the plugin). Assertions checked per case (content correct? format followed?), aggregated in `benchmark.json`.
 
-## Ergebnisse (Iteration 1, 2026-08-05)
+## Results (iteration 1, 2026-08-05)
 
-| Eval | Wörter mit Skill | Wörter ohne | Δ | Pass mit | Pass ohne |
+| Eval | Words with skill | Words without | Δ | Pass with | Pass without |
 |---|---|---|---|---|---|
 | eval-0 | 39 | 48 | −19% | 4/4 | 4/4 |
 | eval-1 | 29 | 53 | −45% | 5/5 | 4/5 |
 | eval-2 | 58 | 251 | **−77%** | 5/6 | 5/6 |
 
-Ersparnis wächst mit Task-Größe/Baseline-Länge. Kein Informationsverlust bei den Inhalts-Assertions (Ursache, Fix, nächster Schritt — überall vorhanden).
+Savings grow with task size / baseline length. No information loss on the content assertions (cause, fix, next step — present everywhere).
 
-**Gefundener Bug:** eval-2 mit Skill antwortete auf Deutsch, obwohl der User-Prompt Englisch war — die deutsche Skill-Sprache hatte die Sprachwahl überschrieben. Fix: explizite Regel „Ausgabesprache = Sprache der letzten User-Nachricht" + englisches Beispiel im Skill. Danach re-verifiziert.
+**Bug found:** eval-2 with the skill answered in German although the user prompt was English — the skill's German wording had overridden the language choice. Fix: explicit rule "output language = language of the last user message" plus an English example in the skill. Re-verified afterwards.
 
-**Iteration 2** (Regel „Tokens nie erzeugen statt streichen" nachgeschärft): Retest von eval-1 zeigt weitere Verdichtung — Status-Updates 2→0, Endnachricht 29→~20 Wörter, gleicher Informationsgehalt.
+**Iteration 2** (rule "never generate tokens instead of trimming" sharpened): retest of eval-1 shows further compression — status updates 2→0, final message 29→~20 words, same information content.
 
-## Ergebnisse (Iteration 3, 2026-08-08) — Retest: Token-Ersparnis, Symbole, Englisch
+## Results (iteration 3, 2026-08-08) — retest: token savings, symbols, English
 
-Neuer Lauf mit 3 Konfigurationen (Baseline ohne Skill · Skill mit Symbolen · Skill-Variante ohne Symbole, Status als Wörter) auf 2 Aufgaben, jeweils Sonnet-Subagent, identischer Task-Prompt. Getestet wurde der Sub-Agent-Format-Block aus 1.1.0 — das ist der Teil des Skills, der in der Praxis an Sub-Agent-Prompts angehängt wird.
+New run with 3 configurations (baseline without skill · skill with symbols · skill variant without symbols, status as words) on 2 tasks, each a Sonnet subagent, identical task prompt. What was tested is the sub-agent format block from 1.1.0 — the part of the skill that in practice gets appended to sub-agent prompts.
 
-**Token-Ersparnis** (Wörter / Zeichen der Rückgabe; Tokens ≈ Zeichen ÷ 3):
+**Token savings** (words / characters of the return; tokens ≈ characters ÷ 3):
 
-| Aufgabe | Baseline | Skill mit Symbolen | Skill ohne Symbole |
+| Task | Baseline | Skill with symbols | Skill without symbols |
 |---|---|---|---|
-| T1 Bug-Fix-Report (Deutsch) | 73 W / 633 Z | 31 W / 377 Z (**−58% / −40%**) | 52 W / 514 Z (−29% / −19%) |
-| T2 Crash-Log-Analyse (Englisch) | 379 W / 2 619 Z | 85 W / 740 Z (**−78% / −72%**) | 111 W / 809 Z (−71% / −69%) |
+| T1 bug-fix report (German) | 73 w / 633 ch | 31 w / 377 ch (**−58% / −40%**) | 52 w / 514 ch (−29% / −19%) |
+| T2 crash-log analysis (English) | 379 w / 2,619 ch | 85 w / 740 ch (**−78% / −72%**) | 111 w / 809 ch (−71% / −69%) |
 
-Inhaltlich kein Verlust: alle Läufe fanden den Off-by-one-Bug (und fixten ihn korrekt in der Datei) bzw. die OOM-Ursache (unbegrenztes Cache-Wachstum) samt Fix und Restrisiko.
+No loss in substance: every run found the off-by-one bug (and fixed it correctly in the file) or the OOM cause (unbounded cache growth) including fix and residual risk.
 
-**Sind Symbole nötig?** Ja — behalten. Die Variante ohne Symbole war durchgehend länger (T1: +36% Zeichen, T2: +9%) und produzierte mehr Füll-Zeilen („Status: … erledigt; … offen"). Symbole sparen nicht nur die ersetzten Wörter (`✓` vs. „erledigt und gefixt"), sie disziplinieren auch die Struktur: eine Markierung pro Zeile statt Prosa-Ansätze. Der Effekt ist bei kurzen Antworten am größten.
+**Are symbols necessary?** Yes — keep them. The variant without symbols was consistently longer (T1: +36% characters, T2: +9%) and produced more filler lines ("Status: … done; … open"). Symbols don't just save the words they replace (`✓` vs. "done and fixed"), they also discipline the structure: one marker per line instead of prose openings. The effect is largest on short answers.
 
-**Funktioniert der Skill auf Englisch?** Nach einem Fix: ja. Der Retest reproduzierte den Sprach-Bug aus Iteration 1 an neuer Stelle — der **deutsche** Format-Block aus 1.1.0 zog englische Tasks auf Deutsch (beide Skill-Varianten antworteten deutsch auf einen englischen Prompt; die Zeile „Ausgabesprache = Sprache dieses Prompts" reichte nicht, weil der Block selbst Teil des Prompts ist). Fix in 1.2.0: der Block wird in der **Sprache des Task-Prompts** angehängt, englische Fassung liegt fertig im Skill. Re-Test verifiziert: Antwort vollständig englisch, 10 Zeilen, Format eingehalten, −69% Wörter gegen Baseline.
+**Does the skill work in English?** After a fix: yes. The retest reproduced the language bug from iteration 1 in a new place — the **German** format block from 1.1.0 pulled English tasks into German (both skill variants answered in German to an English prompt; the line "output language = language of this prompt" wasn't enough, because the block itself is part of the prompt). Fix in 1.2.0: the block is appended in the **language of the task prompt**, with the English version ready in the skill. Re-test verified: answer fully in English, 10 lines, format followed, −69% words against baseline.
 
-## Propagations-Test (Iteration 3b, 2026-08-08)
+## Propagation test (iteration 3b, 2026-08-08)
 
-Getestet wurde zusätzlich, ob ein Haupt-Agent mit geladenem Skill die Sub-Agent-Regel wirklich **befolgt** (nicht nur, ob der Block wirkt): 2 Haupt-Agenten (Sonnet) bekamen SKILL.md als aktiven Skill und mussten eine Log-Analyse an einen eigenen Sub-Agent delegieren; geprüft wurde der exakte weitergereichte Prompt.
+Additionally tested: whether a main agent with the skill loaded actually **follows** the sub-agent rule (not just whether the block works): 2 main agents (Sonnet) got SKILL.md as an active skill and had to delegate a log analysis to their own sub-agent; the exact forwarded prompt was checked.
 
-| Test | Block angehängt? | Block-Sprache korrekt? | Rückgabe verdichtet statt durchgereicht? |
+| Test | Block appended? | Block language correct? | Return condensed instead of passed through? |
 |---|---|---|---|
-| Haupt-Agent deutsch | ✓ wortgleich | ✓ deutsch | ✓ 10 → 5 Zeilen |
-| Haupt-Agent englisch | ✓ wortgleich | ✓ englisch (neue 1.2.0-Regel) | ✓ |
+| Main agent German | ✓ verbatim | ✓ German | ✓ 10 → 5 lines |
+| Main agent English | ✓ verbatim | ✓ English (new 1.2.0 rule) | ✓ |
 
-Gefundene Lücke: Der Block band nur die erste Ebene — ein Sub-Agent, der selbst Sub-Agents startet, reichte ihn nicht weiter. Fix: Block enthält jetzt eine Weiterreich-Zeile („Startest du selbst Sub-Agents: diesen Block an deren Prompts anhängen"), Propagation ist damit transitiv.
+Gap found: the block only bound the first level — a sub-agent that spawns its own sub-agents didn't pass it on. Fix: the block now contains a forwarding line ("If you spawn sub-agents yourself, append this block to their prompts"), making propagation transitive.
 
-Nicht von innen testbar bleibt das **Triggern** des Skills im Hauptchat (Description-Matching durch den Harness bei „kurz", „tldr" etc.) — das entscheidet die Plattform, nicht der Skill-Inhalt.
+What remains untestable from the inside is the **triggering** of the skill in the main chat (description matching by the harness on "short", "tldr" etc.) — that's decided by the platform, not by the skill's content.
 
-## Grenzen
+## Limits
 
-- `runs_per_configuration: 1` — schnelle Validierung, kein groß angelegtes Benchmark mit Streuung (stddev). Gilt auch für Iteration 3.
-- Baseline = Sonnet-Subagent mit `effort: low`, von Haus aus knapper als ein Standard-Assistent ohne Skill — reale Ersparnis im Alltag vermutlich höher als hier gemessen.
-- Rohdaten (Fixtures, `benchmark.json`, Reports pro Lauf) liegen in `~/.claude/skills/telegramm-workspace/iteration-1/` — nicht Teil dieses Repos.
+- `runs_per_configuration: 1` — quick validation, not a large benchmark with variance (stddev). Applies to iteration 3 as well.
+- Baseline = Sonnet subagent with `effort: low`, terser out of the box than a standard assistant without the skill — real-world savings are probably higher than measured here.
+- Raw data (fixtures, `benchmark.json`, per-run reports) lives in `~/.claude/skills/telegramm-workspace/iteration-1/` — not part of this repo.

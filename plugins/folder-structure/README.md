@@ -1,22 +1,22 @@
 # folder-structure
 
-Gibt jedem Projekt eine saubere, agent-taugliche Ordnerstruktur nach der **Interpretable Context Methodology** (ICM) — Van Clief & McDermott, [arXiv:2603.16021](https://arxiv.org/abs/2603.16021).
+Gives any project a clean, agent-ready folder structure based on the **Interpretable Context Methodology** (ICM) — Van Clief & McDermott, [arXiv:2603.16021](https://arxiv.org/abs/2603.16021).
 
-## Kernidee
+## Core idea
 
-Das Dateisystem IST die Orchestrierung: nummerierte Ordner kodieren die Ausführungsreihenfolge, Markdown-Dateien tragen Prompts und Kontext, `output/`-Ordner sind die Übergabepunkte zwischen Stages. Ein Agent, der die richtigen Dateien im richtigen Moment liest, ersetzt ein Multi-Agent-Framework.
+The filesystem IS the orchestration: numbered folders encode execution order, markdown files carry prompts and context, `output/` folders are the handoff points between stages. One agent reading the right files at the right moment replaces a multi-agent framework.
 
-## Was der Skill liefert
+## What the skill delivers
 
-- **5-Layer-Kontexthierarchie**: Identität (`CLAUDE.md`) → Routing (`CONTEXT.md`) → Stage-Contract → Referenzmaterial → Arbeitsartefakte
-- **Kanonisches Layout** mit `stages/NN_name/`, `_config/`, `shared/`, `setup/`
-- **Stage-Contract-Template** (Inputs/Process/Outputs) für jede Stage
-- **Migrations-Vorgehen** für bestehende Projekte (Audit → Mapping → Verschieben → Contracts schreiben)
-- **Grenze für Code-Repos**: ICM strukturiert Agent-Workflows, nicht Source-Trees — `src/`, `tests/` etc. bleiben bei den Konventionen des Ökosystems
+- **Five-layer context hierarchy**: identity (`CLAUDE.md`) → routing (`CONTEXT.md`) → stage contract → reference material → working artifacts
+- **Canonical layout** with `stages/NN_name/`, `_config/`, `shared/`, `setup/`
+- **Stage contract template** (Inputs/Process/Outputs) for every stage
+- **Migration procedure** for existing projects (audit → mapping → move → write contracts)
+- **Boundary for code repos**: ICM structures agent workflows, not source trees — `src/`, `tests/` etc. keep their ecosystem's conventions
 
-## Trigger
+## Triggers
 
-„folder structure", „ordnerstruktur", „organize this project", „scaffold", „workspace setup", „ICM", „restructure the repo" — oder Start eines neuen mehrstufigen Projekts.
+"folder structure", "organize this project", "scaffold", "workspace setup", "ICM", "restructure the repo" — or the start of a new multi-step project.
 
 ## Installation
 

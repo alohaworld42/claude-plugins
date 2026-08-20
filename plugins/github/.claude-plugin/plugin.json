@@ -2,9 +2,18 @@
   "name": "github",
   "displayName": "GitHub",
   "version": "1.0.0",
-  "description": "GitHub-Operationen über die gh CLI: Repos anlegen und veröffentlichen, Sichtbarkeit ändern, PR-Workflow, Releases — mit Sicherheitsregeln für destruktive Aktionen und Fallbacks für Umgebungen ohne gh.",
-  "author": { "name": "alohaworld42" },
+  "description": "GitHub operations via the gh CLI: create and publish repos, change visibility, PR workflow, releases — with safety rules for destructive actions and fallbacks for environments without gh.",
+  "author": {
+    "name": "alohaworld42"
+  },
   "repository": "https://github.com/alohaworld42/claude-plugins",
   "license": "MIT",
-  "keywords": ["github", "gh", "repo", "release", "pull-request", "publish", "deutsch"]
+  "keywords": [
+    "github",
+    "gh",
+    "repo",
+    "release",
+    "pull-request",
+    "publish"
+  ]
 }

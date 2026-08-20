@@ -1,18 +1,18 @@
 # github
 
-GitHub-Verwaltung über die gh CLI — für alles, was `git push` allein nicht kann.
+GitHub management via the gh CLI — for everything `git push` alone can't do.
 
-## Zweck
+## Purpose
 
-Scoped App-Integrationen (z. B. Claude Code Remote) dürfen oft keine Repos anlegen und keine Sichtbarkeit ändern. Die gh CLI mit User-Login kann es. Dieser Skill gibt Claude die Rezepte und — wichtiger — die Leitplanken:
+Scoped app integrations (e.g. Claude Code Remote) often can't create repos or change visibility. The gh CLI with a user login can. This skill gives Claude the recipes and — more importantly — the guardrails:
 
-- **Repo anlegen & veröffentlichen** (`gh repo create`), Default privat, public nur auf ausdrücklichen Wunsch mit Bestätigung
-- **Sichtbarkeit ändern** mit Risiko-Hinweis (public→privat bricht fremde Clones/Installationen)
-- **PR-Workflow** (Draft-PRs, Squash-Merge, Branch-Cleanup)
-- **Releases & Issues** (Versionen aus dem Projekt lesen, Duplikat-Check)
-- **Secret-Check** vor erstem Push in public Repos
+- **Create & publish repos** (`gh repo create`), private by default, public only on explicit request with confirmation
+- **Change visibility** with a risk note (public→private breaks other people's clones/installations)
+- **PR workflow** (draft PRs, squash merge, branch cleanup)
+- **Releases & issues** (read versions from the project, duplicate check)
+- **Secret check** before the first push to a public repo
 
-Ohne gh CLI (Remote-Umgebung mit App-Scope) bereitet der Skill alles vor und nennt dem User die 1–2 manuellen Schritte, statt an 403-Fehlern zu scheitern.
+Without the gh CLI (remote environment with app scope) the skill prepares everything and tells the user the 1–2 manual steps, instead of failing on 403 errors.
 
 ## Installation
 
@@ -20,4 +20,4 @@ Ohne gh CLI (Remote-Umgebung mit App-Scope) bereitet der Skill alles vor und nen
 /plugin install github@alohaworld-plugins
 ```
 
-Voraussetzung: [gh CLI](https://cli.github.com) installiert und eingeloggt (`gh auth login`).
+Requires the [gh CLI](https://cli.github.com) installed and logged in (`gh auth login`).
