@@ -214,6 +214,27 @@
         "cookies",
         "web"
       ]
+    },
+    {
+      "name": "research-first",
+      "source": "./plugins/research-first",
+      "description": "Search before answering, the way a human does: fan out 3-5 differently worded queries, open several sources of different type, compare them against each other instead of summarizing in sequence, trace load-bearing claims to their origin, then reason. Ships a UserPromptSubmit gate so it fires on research-shaped prompts instead of waiting to be remembered.",
+      "version": "1.0.0",
+      "author": {
+        "name": "alohaworld42"
+      },
+      "license": "MIT",
+      "category": "workflow",
+      "keywords": [
+        "research",
+        "websearch",
+        "sources",
+        "verification",
+        "sift",
+        "lateral-reading",
+        "grounding",
+        "hallucination"
+      ]
     }
   ]
 }

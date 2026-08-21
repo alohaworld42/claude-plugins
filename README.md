@@ -81,6 +81,18 @@ Ships: skill `deepfetch` → `/deepfetch:deepfetch`, plus `scripts/deepfetch.py`
 
 Verified live before shipping — 6 module self-tests, real network calls, 2 real bugs found and fixed with evidence: [plugins/deepfetch/README.md](plugins/deepfetch/README.md).
 
+### research-first
+
+The steps that come *before* thinking. A human meeting an unfamiliar question searches, skims several results, notices where they agree and where they don't, and only then reasons. An agent that skips to the reasoning writes confident, well-argued, ungrounded answers.
+
+Six moves: stop before answering from memory → fan out 3–5 differently worded queries (jargon / plain / verbatim error / `X limitations` / primary source) → open ≥3 sources of *different type* → compare and adjudicate instead of summarizing in sequence → trace load-bearing claims to their origin → then think.
+
+- Ships a `UserPromptSubmit` gate (stdlib Python) that detects research-shaped prompts and injects a four-line reminder — because a skill that must be remembered is exactly the failure mode. Local work (`git commit`, `rename foo`) stays silent; kill switch `~/.claude/research-first-off`.
+- Built on Caulfield's SIFT and Wineburg's lateral reading, plus query fan-out and verification-driven orchestration from the agent literature.
+- Pairs with `deepfetch`: research-first decides a page is needed, deepfetch gets it past the 403.
+
+Ships: skill `research-first` → `/research-first:research-first`, plus `hooks/research_gate.py`.
+
 ## Contributing a plugin
 
 Each plugin directory should carry its own `README.md` (sibling to `.claude-plugin/` and `skills/`) explaining what it does and why. Where the skill was validated with the skill-creator eval loop (fixtures, with/without-skill subagent comparison, benchmark), include the methodology and results there instead of asserting effectiveness without evidence — see `plugins/telegramm/README.md` for the pattern.
@@ -110,6 +122,10 @@ plugins/deepfetch/
   .claude-plugin/plugin.json
   skills/deepfetch/SKILL.md
   skills/deepfetch/scripts/{deepfetch,common,classify,extract,tier_direct,tier_tls,tier_browser,tier_cookies,setup}.py
+plugins/research-first/
+  .claude-plugin/plugin.json
+  skills/research-first/SKILL.md
+  hooks/{hooks.json,research_gate.py}
 ```
 
 ## License

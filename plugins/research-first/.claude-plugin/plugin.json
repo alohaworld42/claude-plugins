@@ -1,0 +1,8 @@
+{
+  "name": "research-first",
+  "version": "1.0.0",
+  "description": "Search before answering — the steps a human does before thinking: fan out queries, open several sources, compare them against each other, trace claims to the origin, then reason.",
+  "author": { "name": "alohaworld42" },
+  "license": "MIT",
+  "keywords": ["research", "websearch", "sources", "verification", "sift", "lateral-reading", "grounding"]
+}
