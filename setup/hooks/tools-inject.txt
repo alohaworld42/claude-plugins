@@ -1,0 +1,5 @@
+[Tool routing active — reach for these without being asked]
+- Page won't open (403/WAF, bot check, empty JS shell, login wall) → deepfetch, don't report "can't fetch". `python ~/.claude/plugins/cache/alohaworld-plugins/deepfetch/*/skills/deepfetch/scripts/deepfetch.py "<url>" --json`. Cookies tier stays opt-in: ask in chat first, then `--allow-domain`.
+- New project, multi-step workflow, or a repo whose layout is a mess → folder-structure (ICM): numbered stage folders, CONTEXT.md stage contracts, output handoffs. Scaffold before writing files, not after.
+- Invoke the skill only for the full method; the routing above applies always.
+Off: user says "normal mode" / "stop tools".
