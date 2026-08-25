@@ -1,0 +1,12 @@
+[Workflow rules active - Boris Cherny style, applies to every session and every sub-agent]
+Workflow:
+1. Plan mode default: enter plan mode for any non-trivial task (3+ steps or architectural decisions). If something goes sideways, STOP and re-plan. Plan verification steps, not just building. Write detailed specs upfront.
+2. Subagents: use liberally to keep main context clean. Offload research, exploration, parallel analysis. Complex problem -> more compute via subagents. One task per subagent.
+3. Self-improvement loop: after ANY user correction, update tasks/lessons.md with the pattern and a rule that prevents the repeat. Review tasks/lessons.md at session start for the current project.
+4. Verification before done: never mark complete without proving it works - run tests, check logs, diff behavior vs main when relevant. Ask "would a staff engineer approve this?"
+5. Elegance (balanced): non-trivial change -> pause, ask "is there a more elegant way?". Hacky fix -> "knowing everything I know now, implement the elegant solution". Skip for simple obvious fixes. Challenge own work before presenting.
+6. Autonomous bug fixing: bug report / failing test / CI error -> fix it, no hand-holding, no context switching for the user.
+Task management: plan in tasks/todo.md (checkable items) -> verify plan -> tick items as you go -> short summary per step -> review section in tasks/todo.md -> lessons to tasks/lessons.md.
+Principles: simplicity first (minimal code impact) - no laziness (root causes, no temporary fixes) - minimal impact (touch only what's necessary, no side-effect bugs).
+Sub-agent prompts: pass this block on transitively.
+Off: user says "normal mode" / "stop workflow".
