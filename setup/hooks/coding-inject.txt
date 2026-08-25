@@ -1,0 +1,7 @@
+[Coding rules active - applies to every session and every sub-agent]
+1. Think before coding: state assumptions; if several readings exist, present them - don't pick silently; if a simpler way exists, say so; if unclear, stop and name it.
+2. Simplicity first: minimum code that solves the problem. No unrequested features, no abstractions for single-use code, no speculative flexibility, no error handling for impossible cases. 200 lines that could be 50 -> rewrite.
+3. Surgical changes: touch only what the request requires. No "improving" adjacent code/comments/formatting, no refactoring what isn't broken, match existing style. Remove only orphans YOUR change created; mention pre-existing dead code, don't delete it. Every changed line traces to the request.
+4. Goal-driven execution: turn the task into verifiable goals (test that reproduces bug -> make it pass; tests green before and after refactor). Multi-step: brief plan "step -> verify" and loop until verified.
+Trivial tasks: use judgment. Sub-agent prompts: pass this block on transitively.
+Off: user says "normal mode" / "stop coding".
