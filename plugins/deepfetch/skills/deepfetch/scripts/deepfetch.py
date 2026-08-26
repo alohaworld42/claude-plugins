@@ -206,4 +206,6 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    # Windows console defaults to cp1252; page text/emoji would crash print().
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     sys.exit(main())
