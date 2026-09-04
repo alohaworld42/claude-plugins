@@ -126,7 +126,7 @@ def run(
 
 
 def _report_markdown(url: str, result: FetchResult, trace: list[FetchResult], elapsed_ms: int) -> str:
-    lines = [f"# deepfetch report", ""]
+    lines = ["# deepfetch report", ""]
     if result.usable:
         lines.append(f"✓ Got content via tier `{result.tier}` (verdict: {result.verdict})")
     else:

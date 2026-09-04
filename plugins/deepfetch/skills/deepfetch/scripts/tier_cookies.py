@@ -89,7 +89,7 @@ def _export_cookies_via_ytdlp(domain: str, browser: str, jar_path: Path) -> bool
     if not shutil.which("yt-dlp"):
         return False
     try:
-        proc = subprocess.run(
+        subprocess.run(
             [
                 "yt-dlp",
                 "--cookies-from-browser", browser,
