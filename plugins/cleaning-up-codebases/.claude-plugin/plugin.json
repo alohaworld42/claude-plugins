@@ -1,0 +1,11 @@
+{
+  "name": "cleaning-up-codebases",
+  "displayName": "Cleaning Up Codebases",
+  "version": "1.0.0",
+  "description": "Systematic codebase cleanup that asks 'should this exist?' before 'how can I improve this?' — dead code, cruft, anti-patterns, scope creep, and architectural drift, especially in vibe-coded or rapidly developed projects.",
+  "author": { "name": "alohaworld42" },
+  "repository": "https://github.com/alohaworld42/claude-plugins",
+  "license": "MIT",
+  "category": "workflow",
+  "keywords": ["cleanup", "dead-code", "refactor", "audit", "tech-debt", "scope-creep"]
+}

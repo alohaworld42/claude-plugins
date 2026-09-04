@@ -235,6 +235,25 @@
         "grounding",
         "hallucination"
       ]
+    },
+    {
+      "name": "cleaning-up-codebases",
+      "source": "./plugins/cleaning-up-codebases",
+      "description": "Systematic codebase cleanup that asks 'should this exist?' before 'how can I improve this?' — dead code, cruft, anti-patterns, scope creep, and architectural drift, especially in vibe-coded or rapidly developed projects. Tiered findings (safe deletes first), baseline verification before and after every change, scope negotiated with the owner instead of assumed.",
+      "version": "1.0.0",
+      "author": {
+        "name": "alohaworld42"
+      },
+      "license": "MIT",
+      "category": "workflow",
+      "keywords": [
+        "cleanup",
+        "dead-code",
+        "refactor",
+        "audit",
+        "tech-debt",
+        "scope-creep"
+      ]
     }
   ]
 }
