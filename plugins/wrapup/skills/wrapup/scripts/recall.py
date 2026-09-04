@@ -9,7 +9,6 @@ that is where the token saving comes from.
 import argparse
 import os
 import re
-import sys
 from pathlib import Path
 
 DEFAULT_STORE = Path(os.environ.get("WRAPUP_STORE", Path.home() / ".claude" / "wrapup"))

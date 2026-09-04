@@ -21,7 +21,7 @@ $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $hooksSourceDir = Join-Path $scriptDir 'hooks'
 
 # Reihenfolge = Reihenfolge im injizierten Block: erst Methode, dann Routing, dann Stil.
-$modules = @('research-first', 'tools', 'stfu', 'telegramm')
+$modules = @('research-first', 'tools', 'stfu', 'telegramm', 'coding', 'workflow')
 
 # --- 1. ~/.claude/ sicherstellen ---
 if (-not (Test-Path $claudeDir)) {

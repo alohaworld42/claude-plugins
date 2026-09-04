@@ -93,6 +93,15 @@ Six moves: stop before answering from memory → fan out 3–5 differently worde
 
 Ships: skill `research-first` → `/research-first:research-first`, plus `hooks/research_gate.py`.
 
+### cleaning-up-codebases
+
+Systematic codebase cleanup that asks "should this exist?" before "how can I improve this?" Reads project intent first (README/CLAUDE.md, design docs, git log), surveys dead code and scope creep with automated scans rather than file-by-file reading, establishes a clean lint/test/build baseline, then works findings safe-deletes-first through a tier system (T1–T4) — verifying build and tests after every change instead of only at the end.
+
+- Removal over refactoring, simplification over restructuring — the failure mode it guards against is refactoring code that should be deleted.
+- Negotiates scope with the owner rather than assuming what they value; presents findings before prescribing a plan.
+
+Ships: skill `cleaning-up-codebases` → `/cleaning-up-codebases:cleaning-up-codebases`.
+
 ## Contributing a plugin
 
 Each plugin directory should carry its own `README.md` (sibling to `.claude-plugin/` and `skills/`) explaining what it does and why. Where the skill was validated with the skill-creator eval loop (fixtures, with/without-skill subagent comparison, benchmark), include the methodology and results there instead of asserting effectiveness without evidence — see `plugins/telegramm/README.md` for the pattern.
@@ -126,6 +135,9 @@ plugins/research-first/
   .claude-plugin/plugin.json
   skills/research-first/SKILL.md
   hooks/{hooks.json,research_gate.py}
+plugins/cleaning-up-codebases/
+  .claude-plugin/plugin.json
+  skills/cleaning-up-codebases/SKILL.md
 ```
 
 ## License
